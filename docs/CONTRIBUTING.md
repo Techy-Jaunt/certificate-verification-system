@@ -48,9 +48,7 @@ git checkout yourname-[fe or be]
 Before you start working **every time**:
 
 ```bash
-git checkout main
 git pull origin main
-git checkout yourname-[fe or be]
 git merge main
 ```
 
