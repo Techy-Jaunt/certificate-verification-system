@@ -1,113 +1,85 @@
 # 🎓 Alumni Certificate Verification & Access Portal
 
-A secure web platform for Techyjaunt alumni to download their certificates, and for recruiters or the public to verify graduate credentials—**without downloading or screenshotting sensitive documents**.
+A secure platform for **Techyjaunt alumni** to access their graduation certificates and for **recruiters/public** to verify credentials — without enabling downloads or easy screenshots.
 
 ---
 
-## 🧠 Overview
+## 📌 Overview
 
-**Alumni Cert Portal** enables:
-- **Alumni** to securely access and download their graduation certificates.
-- **Recruiters/Public** to search and view a non-downloadable, protected preview of alumni certificates.
-- **Admins** sync alumni data and certificates from a central **Google Sheet**—no manual uploads.
+- **Alumni** — can securely download certificate.  
+- **Recruiters/Public** — search and view protected certificate previews.  
+- **Admins** — sync alumni data and certificates directly from a Google Sheet 
 
 ---
 
 ## 🚀 Features
 
-- 🔒 **Secure Certificate Download** for verified alumni only
-- 🧾 **Google Sheets Integration**: Automates data import
-- 🔍 **Recruiter/Public Search** with screenshot-protected previews
-- 👥 **Role-based Access**: Admins, Alumni, Public
-- 🧑‍🤝‍🧑 **Built by the Community**: Alumni developers, designers, PMs, analysts, and cybersecurity volunteers
+- 🔒 Secure certificate download (alumni only)  
+- 🔍 Public recruiter search with protected previews  
+- 🧾 Google Sheets integration for automated data sync  
+ 
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
-| Layer       | Tech                    |
-|-------------|-------------------------|
-| Frontend    | React, Tailwind CSS     |
-| Backend     | Node.js, Express        |
-| Database    | PostgreSQL              |
-| Sync Source | Google Sheets API       |
-| Auth (TBD)  | JWT, OAuth, Magic Link? |
-| DevOps      | Docker, GitHub Actions  |
+| Layer       | Technology               |
+|-------------|--------------------------|
+| Frontend    | React, Tailwind CSS      |
+| Backend     | Node.js, Express         |
+| Database    | PostgreSQL               |
+| Data Sync   | Google Sheets API        |
+| DevOps      | Docker, GitHub Actions   |
 
 ---
 
-## 🧱 Project Structure
+## 📂 Project Structure
 
 ```plaintext
 alumni-cert-portal/
-├── backend/       # Express API with PostgreSQL + Google Sheets sync
-├── frontend/      # React + Tailwind certificate UI and search
-├── infra/         # Docker, docker-compose, CI/CD configs
+├── backend/       # backend files
+├── frontend/      # frontend files
+├── infra/         # Docker, CI/CD configs
 ├── docs/          # Contributor guides
-├── .env.example   # Environment config template
-└── README.md
-```
+└── .env.example   # Env config template
+````
 
 ---
 
-## 📦 Setup Instructions
+## ⚡ Quick Start
 
-### 1. Clone the Repo
+### 1️⃣ Clone & Navigate
 
 ```bash
 git clone https://github.com/YOUR-ORG/alumni-cert-portal.git
 cd alumni-cert-portal
 ```
 
-### 2. Setup Environment Variables
+### 2️⃣ Set Environment Variables
 
 ```bash
 cp .env.example .env
 ```
 
-### 3. Run Locally with Docker
+### 3️⃣ Run with Docker
 
 ```bash
 docker-compose up --build
 ```
 
-Frontend: [http://localhost:5173](http://localhost:5173)  
-Backend: [http://localhost:3000](http://localhost:3000)
+* Frontend → [http://localhost:5173](http://localhost:5173)
+* Backend → [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 🧑‍💻 Contributing
+## 🤝 Contributing
 
-We welcome developers, designers, product managers, data analysts, and cybersecurity experts from the alumni community!
+We welcome alumni developers, designers, PMs, and security experts.
 
-📄 See [`docs/CONTRIBUTING.md`](./docs/CONTRIBUTING.md) for:
-
-- Dev setup
-- GitHub branching & PR guide
-- Roles & responsibilities
-- Code standards (Prettier + ESLint)
+See [`docs/CONTRIBUTING.md`](./docs/CONTRIBUTING.md) on how to contribute to this repository.
 
 ---
 
-## 🔐 Security Considerations
+## 📜 License
 
-- Backend proxy serves certificate files securely
-- Frontend uses watermarking + JS/CSS tricks to discourage screenshots
-- Admin access is restricted via backend auth
-
----
-
-## 📅 Roadmap
-
-- [ ] Google Sheets sync API  
-- [ ] Alumni auth via email + ID + cohort  
-- [ ] Recruiter search & preview  
-- [ ] Screenshot protection layer  
-- [ ] Admin dashboard  
-- [ ] Deployment to Vercel + Railway  
-
----
-
-## 🤝 License
-
-MIT — Built by Techyjaunt alumni, for alumni 💛
+MIT — Built by Techyjaunt alumni 💛

@@ -1,16 +1,13 @@
-import { useState } from 'react'
-import './App.css'
+import React from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-        <div className='card'>
-            <h1>Welcome to Techyjaunt Alumni</h1>
-        </div>
-    </>
-  )
-}
+    <div>
+      <h1 className="text-3xl font-bold underline">
+        certificate-verification-system
+      </h1>
+    </div>
+  );
+};
 
-export default App
+export default App;
