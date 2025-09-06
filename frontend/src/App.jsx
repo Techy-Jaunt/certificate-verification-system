@@ -1,13 +1,21 @@
 import React from "react";
+import { HashRouter as Router, Route, Routes } from "react-router";
+import Home from "./pages/Home";
+import RecruiterSearch from "./pages/RecruiterSearch";
+import CertificateRequest from "./pages/CertificateRequest";
+import CertificatePreview from "./pages/CertificatePreview";
 
-const App = () => {
+function AppRoutes() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline text-error">
-        certificate-verification-system
-      </h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/recruiter-search" element={<RecruiterSearch />} />
+        <Route path="/certificate-request" element={<CertificateRequest />} />
+        <Route path="/certificate-verified" element={<CertificatePreview />} />
+      </Routes>
+    </Router>
   );
-};
+}
 
-export default App;
+export default AppRoutes;
