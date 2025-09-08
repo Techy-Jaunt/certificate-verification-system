@@ -5,6 +5,7 @@ import RecruiterSearch from "./pages/RecruiterSearch";
 import CertificateRequest from "./pages/CertificateRequest";
 import CertificatePreview from "./pages/CertificatePreview";
 import CertificateDownload from "./modals/SuccessDownloadAlumni";
+import CertificateVerification from "./modals/CertificateVerificationSuccess";
 
 function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ function AppRoutes() {
         <Route path="/certificate-request" element={<CertificateRequest />} />
         <Route path="/certificate-verified" element={<CertificatePreview />} />
         <Route path="/certificate-download" element={<CertificateDownload />} />
+        <Route path="/certificate-verification" element={<CertificateVerification />} />
         
       </Routes>
     </Router>

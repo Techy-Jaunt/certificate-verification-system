@@ -2,7 +2,7 @@ import downloadIcon from "/icons/download-icon.svg";
 import successIcon from "/icons/tick.png";
 import close from "/icons/close.svg";
 import backArrow from "/icons/Back arrow.png";
-import vector from "/icons/verify icon.png"
+import sheildTick from "/icons/shield-tick.svg";
 
 const SuccessDownloadAlumni = () => {
   return (
@@ -10,7 +10,7 @@ const SuccessDownloadAlumni = () => {
       <button className="absolute left-16 top-10 flex"><img src={backArrow} alt="" className="rotate-90 w-5"/> Back</button>
       <h2 className="text-4xl font-semibold">Certificate</h2>
       <div className="hidden md:flex gap-2">
-        <img src={vector} alt="" />
+        <img src={sheildTick} alt="" />
         <p>Verification successful! Here is your certificate</p>
       </div>
       <div className="certificate md:w-[65%] lg:w-[50%] md:h-[18rem] lg:h-[22rem] bg-[var(--color-background-alt)] border border-[#0000FE]"></div>
