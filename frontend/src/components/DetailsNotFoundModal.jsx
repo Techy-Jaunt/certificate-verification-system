@@ -37,7 +37,7 @@ export const DetailsNotFoundModal = ({ onClose }) => {
         {/* Modal Content */}
         <div className="flex flex-col items-center p-6 text-center">
           <div className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center mb-4">
-            <span className="text-white text-3xl font-bold">!</span>
+            <span className="text-white text-6xl font-bold">!</span>
           </div>
 
           <h2 className="text-xl font-semibold text-gray-800 mb-2">
