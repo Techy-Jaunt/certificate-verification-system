@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DetailsNotFoundModal } from "./components/DetailsNotFoundModal";
+import { ErrorPopUp } from "./modals/ErrorPopUp";
 
 const App = () => {
   const [showModal, setShowModal] = useState(true);
@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div>
       {showModal && (
-        <DetailsNotFoundModal onClose={() => setShowModal(false)} />
+        <ErrorPopUp onClose={() => setShowModal(false)} />
       )}
 
       <h1 className="text-3xl font-bold underline text-red-500">

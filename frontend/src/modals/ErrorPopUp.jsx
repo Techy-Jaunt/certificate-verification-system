@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
 
-export const DetailsNotFoundModal = ({ onClose }) => {
+export const ErrorPopUp = ({ onClose }) => {
   const navigate = useNavigate();
 
   const handleTryAgain = () => {
