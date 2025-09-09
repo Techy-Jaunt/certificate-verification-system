@@ -1,3 +1,4 @@
+
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import Home from "./pages/Home";
@@ -21,6 +22,6 @@ function AppRoutes() {
       </Routes>
     </Router>
   );
-}
 
+}
 export default AppRoutes;
