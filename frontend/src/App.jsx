@@ -1,16 +1,15 @@
 
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router-dom";
+import CertificateVerification from "./modals/CertificateVerificationSuccess";
+import CertificateDownload from "./modals/SuccessDownloadAlumni";
+import CertificatePreview from "./pages/CertificatePreview";
+import CertificateRequest from "./pages/CertificateRequest";
 import Home from "./pages/Home";
 import RecruiterSearch from "./pages/RecruiterSearch";
-import CertificateRequest from "./pages/CertificateRequest";
-import CertificatePreview from "./pages/CertificatePreview";
-import CertificateDownload from "./modals/SuccessDownloadAlumni";
-import CertificateVerification from "./modals/CertificateVerificationSuccess";
 
 function AppRoutes() {
   return (
-    <Router>
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/recruiter-search" element={<RecruiterSearch />} />
@@ -20,7 +19,7 @@ function AppRoutes() {
         <Route path="/certificate-verification" element={<CertificateVerification />} />
         
       </Routes>
-    </Router>
+
   );
 
 }
