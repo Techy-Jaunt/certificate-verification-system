@@ -5,7 +5,7 @@ const RecruiterSearch = () => {
     <>
       <body class="bg-white flex items-center justify-center min-h-screen p-4">
         <div class="w-full max-w-lg bg-white px-6 rounded-lg ">
-          <h1 class="text-xl sm:text-2xl md:text-3xl font-cinzel font-bold text-center text-blue-600 mb-2">
+          <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-center text-blue-600 mb-2">
             Verify Alumni Certificates <br class="hidden sm:block" /> Instantly
           </h1>
 
