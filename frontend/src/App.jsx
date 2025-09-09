@@ -1,9 +1,11 @@
+
 import React from 'react';
-import { HashRouter as Router, Route, Routes } from 'react-router';
+import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import Home from './pages/Home';
 import RecruiterSearch from './pages/RecruiterSearch';
 import CertificateRequest from './pages/CertificateRequest';
 import CertificatePreview from './pages/CertificatePreview';
+
 
 function AppRoutes() {
 	return (
