@@ -24,7 +24,7 @@ const SuccessDownloadAlumni = () => {
           Download Successful
         </h2>
 
-        <p className="mt-2 text-gray-60 text-xs md:text-sm">
+        <p className="mt-2 text-gray-60 text-sm md:text-base">
           Your certificate has been sent to your email address
           ekate****@gmail.com
         </p>

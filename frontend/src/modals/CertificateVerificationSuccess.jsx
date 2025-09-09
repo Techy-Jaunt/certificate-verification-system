@@ -18,11 +18,11 @@ const CertificateVerificationSuccess = () => {
       <div className="flex flex-col justify-center items-center bg-white w-[20rem] md:max-w-[28rem] lg:max-w-[35rem] md:w-full p-6 h-[90%] md:h-[20rem] lg:h-[25rem] px-16 scale-100 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:-translate-y-27 lg:-translate-y-43">
         <img src={sheildTick} alt="" className="w-32" />
 
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+        <h2 className="text-2xl font-semibold text-gray-800">
           Certificate Verified
         </h2>
 
-        <p className="mt-2 text-gray-60 text-xs md:text-sm">
+        <p className="mt-2 text-gray-60 text-sm md:text-base">
           This certificate has been successfully verified. For security, only
           alumni can download certificates. You may view it directly here.
         </p>
