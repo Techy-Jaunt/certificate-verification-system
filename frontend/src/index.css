@@ -4,8 +4,9 @@ body {
   font-family: istok-web;
 }
 
+
 @theme {
-  /* Background */
+
   --color-light: #ffffff;
   --color-light-hover: #ffffff;
   --color-light-active: #ffffff;
@@ -19,7 +20,7 @@ body {
   --color-dark-active: #737373;
   --color-darker: #595959;
 
-  /* Primary Scale */
+
   --color-primary-50: #ebf0ff;
   --color-primary-100: #bdb0ff;
   --color-primary-200: #8a8aff;
@@ -32,10 +33,13 @@ body {
   --color-primary-900: #00006b;
   --color-primary-950: #0667d6;
 
-  /* Semantic Colours */
+
   --color-success: #2f7d32;
   --color-error: #d32f2f;
   --color-warning: #b36b00;
   --color-background-alt: #9ca3af;
   --color-card: #ffffff;
+
 }
+
+
