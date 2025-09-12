@@ -1,24 +1,19 @@
-
 import React from "react";
-import HeroSection from "../sections/HeroSection"
-
+import HeroSection from "../components/HeroSection";
 import AlumniCommunity from "../components/AlumniCommunity";
 import Events from "../components/Upcomingalumnievent";
-import Footer from "../pages/Footer";
-
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   return (
     <>
       <div>
-
+        {/* <Navbar /> */}
         <HeroSection />
-
-        <h1 className="text-3xl">AlumniNetwork</h1>
-        <AlumniCommunity/>
+        <AlumniCommunity />
         <Events />
         <Footer />
-
       </div>
     </>
   );

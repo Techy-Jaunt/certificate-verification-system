@@ -32,7 +32,11 @@ export default function Events() {
     },
     {
       tag: "Data Science",
-      title: (<>Data Science Career <br /> Panel </>),
+      title: (
+        <>
+          Data Science Career <br /> Panel{" "}
+        </>
+      ),
       description:
         "Career insights from data science professionals working at top tech companies.",
       date: "Sunday, September 22, 2025",
@@ -48,81 +52,111 @@ export default function Events() {
     <div className="max-w-6xl mx-auto px-6 py-12">
       {/* Heading */}
       <h1 className="text-3xl font-bold text-center">
-        Upcoming <span className="text-blue-600">Alumni Events</span>
+        Upcoming{" "}
+        <span className="text-(--color-primary-400)">Alumni Events</span>
       </h1>
-      <p className="mt-2 text-center text-gray-600">
-        Join your track community and attend exclusive events designed for continuous learning and networking
+      <p className="mb-14 pt-6 text-center text-lg text-gray-600">
+        Join your track community and attend exclusive events designed for
+        continuous learning and networking
       </p>
 
       {/* Grid of Event Cards */}
-      <div className="grid md:grid-cols-3 gap-6 mt-10">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 justify-items-center">
         {events.map((event, i) => {
           const progress = Math.round((event.attending / event.capacity) * 100);
 
           return (
             <div
               key={i}
-              className="rounded-2xl shadow-md border-0 p-6 bg-white hover:shadow-xl transition"
+              className="rounded-2xl shadow-md border border-(--color-normal-hover) p-6 bg-white hover:shadow-lg transition max-w-sm "
             >
-              <div className='flex items-center justify-between'>
-              <span className="text-sm font-medium px-3 py-1 rounded-full bg-blue-100 text-blue-600">
-                {event.tag}
-              </span>
-              <p className="text-sm">45/60 attending</p>
-            </div>
-
-              {/* Title */ }
-          <h2 className="mt-4 text-lg font-semibold text-gray-800">
-            {event.title}
-          </h2>
-
-          {/* Description */ }
-          <p className="mt-2 text-gray-600 text-sm">{event.description}</p>
-
-          {/* Details */ }
-          <div className="mt-4 space-y-1 text-sm text-gray-500">
-            <p>📅 {event.date}</p>
-            <p>🕖 {event.time}</p>
-            <p>
-              {event.isVirtual ? (
-                <span className="font-medium">🌍 Virtual</span>
-              ) : (
-                <span className="font-medium">
-                  <MdLocationOn className="inline mr-1" />
-                  Lagos Tech Hub
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-xs font-medium px-5 py-2 rounded-xl bg-(--color-primary-150) text-(--color-primary-900)">
+                  {event.tag}
                 </span>
-              )}
-            </p>
-          </div>
+                <p className="text-sm">45/60 attending</p>
+              </div>
 
-          {/* Progress bar and Button in one row */ }
-          <div className="mt-4 flex items-center gap-4">
-            <div className="flex-1">
-              <div className="w-full bg-blue-100 rounded-full h-2">
-                <div
-                  className="bg-blue-500 h-2 rounded-full"
-                  style={{ width: `${progress}%` }}
-                ></div>
+              {/* Title */}
+              <h2 className="mt-4 text-base font-semibold text-(--color-darkened)">
+                {event.title}
+              </h2>
+
+              {/* Description */}
+              <p className="mt-2 text-(--color-darker) text-sm">
+                {event.description}
+              </p>
+
+              {/* Details */}
+              <div className="mt-4 space-y-1 text-sm text-(--color-darker)">
+                <p className="flex items-center gap-1">
+                  <img
+                    src="/icons/calendar.png"
+                    alt="calendar"
+                    className="w-4 h-4"
+                  />
+                  <span>{event.date}</span>
+                </p>
+                <p className="flex items-center gap-1">
+                  <img
+                    src="/icons/clock.png"
+                    alt="calendar"
+                    className="w-4 h-4"
+                  />
+                  <span> {event.time}</span>
+                </p>
+
+                <p>
+                  {event.isVirtual ? (
+                    <span className="font-medium flex gap-1 items-center">
+                      <img
+                        src="/icons/location icon.png"
+                        alt="calendar"
+                        className="w-4 h-4"
+                      />
+                      Virtual
+                    </span>
+                  ) : (
+                    <span className="font-medium flex gap-1 items-center">
+                      <img
+                        src="/icons/location icon.png"
+                        alt="calendar"
+                        className="w-4 h-4"
+                      />
+                      Lagos Tech Hub
+                    </span>
+                  )}
+                </p>
+              </div>
+
+              {/* Progress bar and Button in one row */}
+              <div className="mt-4 flex items-center gap-4">
+                <div className="flex-1">
+                  <div className="w-full bg-(--color-normal-hover) rounded-full h-2 ">
+                    <div
+                      className="bg-(--color-primary-300) h-2 rounded-full"
+                      style={{ width: `${progress}%` }}
+                    ></div>
+                  </div>
+                </div>
+                <button className="bg-(--color-primary-500) text-white py-1 px-4 rounded-lg hover:bg-blue-(--color-primary-950) transition whitespace-nowrap text-sm">
+                  Book now
+                </button>
               </div>
             </div>
-            <button className="bg-blue-600 text-white py-1 px-2 rounded-xl hover:bg-blue-700 transition whitespace-nowrap">
-              Book now
-            </button>
-          </div>
-            </div>
-      );
+          );
         })}
-    </div>
+      </div>
 
-      {/* Footer CTA */ }
-  <div className="text-center mt-12">
-    <p className="text-gray-700">
-      Want to organize an event for your community?
-    </p>
-    <button className="mt-7  text-blue-600 font-medium hover:underline border-gray-100 bg-transparent cursor-pointer">
-      Propose an Event
-    </button>
-  </div>
-    </div >
+      {/* Footer CTA */}
+      <div className="text-center mt-12">
+        <p className="text-gray-700">
+          Want to organize an event for your community?
+        </p>
+        <button className="mt-7  text-(--color-primary-500) font-medium border border-(--color-normal-active) rounded-lg  py-1 px-6 bg-transparent cursor-pointer transition-all hover:-translate-y-1 duration-300">
+          Propose an Event
+        </button>
+      </div>
+    </div>
   );
 }
