@@ -1,24 +1,23 @@
-import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
-import "./CertificateRequest.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 const CertificateRequest = () => {
   const navigate = useNavigate();
-  //for state: keeps the inputs controlled
+
   const [form, setForm] = useState({
     fullName: "",
     email: "",
     cohort: "",
     track: "",
   });
-  //UI state
-  const [submitting, setSubmitting] = useState(false);//disables submit button when true
-  const [error,  setError] = useState("");//human readable error to show in the UI
-  //Updates matching form field by name
+
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
   const handleChange = (e) => {
     setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
   };
-  //Client side validation
+
   const validate = () => {
     if (!form.fullName.trim() || !form.email.trim()) {
       setError("Please provide your name and email!");
@@ -30,103 +29,116 @@ const CertificateRequest = () => {
     }
     setError("");
     return true;
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault ();
-    
-    if (!validate()) return;//abort if validation fails
+    e.preventDefault();
+
+    if (!validate()) return;
     setSubmitting(true);
-    try {
-      //Endpoint to be updated
-      const response = await fetch("/api/certificate-requests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      }).catch(() => null);
+    navigate("/alumni-certificate-download");
+    // try {
+    //   const response = await fetch("/api/certificate-requests", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(form),
+    //   }).catch(() => null);
 
-      //Simulating success
-      if (response && !response.ok) {
-        const json = await response.json().catch(() => null);
-        throw new Error(json.message || "Server error");
-      }
+    //   if (response && !response.ok) {
+    //     const json = await response.json().catch(() => null);
+    //     throw new Error(json?.message || "Server error");
+    //   }
 
-      //Navigate to verified page with form data
-      navigate("/certificate-verified", {state: { ...form}});
-    } catch (err) {
-      //Displays error message
-      setError(err?.message || "Request failed. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
+    //   navigate("/certificate-verified", { state: { ...form } });
+    // } catch (err) {
+    //   setError(err?.message || "Request failed. Please try again.");
+    // } finally {
+    //   setSubmitting(false);
+    // }
   };
+
   return (
-    <div className="cr-page">
-      <div className="cr-card">
-        <h1 className="cr-header">Certificate Request Portal</h1>
+    <div className="min-h-screen flex items-center justify-center bg-[#fffefe] px-4 py-8">
+      <div className="w-full max-w-md sm:max-w-2xl lg:max-w-3xl bg-white rounded-lg p-6 sm:p-8 lg:p-12 shadow-md border border-(--color-normal-hover) font-sans">
+        {/* Header */}
+        <h1 className="text-center text-(--color-primary-500) font-bold text-lg sm:text-2xl lg:text-3xl mb-12">
+          Certificate Request Portal
+        </h1>
 
-        {error && <div className="cr-error">{error}</div>}
+        {/* Error message */}
+        {error && (
+          <div className="text-center text-red-600 text-sm mb-4">{error}</div>
+        )}
 
-        <form onSubmit={handleSubmit} className="cr-form">
-          <div className="form-group">
-            <label>Full name</label>
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Full name */}
+          <div>
+            <label className="block text-sm text-gray-800 mb-1">
+              Full name
+            </label>
             <input
               name="fullName"
               value={form.fullName}
               onChange={handleChange}
               placeholder="Kindly input your registered techyjaunt name"
-              className="cr-input"
+              className="w-full border border-gray-400/50 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-(--color-primary-500) transition"
               required
             />
           </div>
 
-          <div className="form-group">
-            <label>E-mail</label>
+          {/* Email */}
+          <div>
+            <label className="block text-sm text-gray-800 mb-1">E-mail</label>
             <input
               name="email"
               type="email"
               value={form.email}
               onChange={handleChange}
               placeholder="Kindly input your registered techyjaunt e-mail"
-              className="cr-input"
+              className="w-full border border-gray-400/50 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-(--color-primary-500) transition"
               required
             />
           </div>
 
-          <div className="cr-grid">
-            <div className="form-group">
-              <label>Cohort</label>
+          {/* Cohort + Track */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm text-gray-800 mb-1">Cohort</label>
               <input
                 name="cohort"
                 value={form.cohort}
                 onChange={handleChange}
                 placeholder="Kindly input your techyjaunt cohort"
-                className="cr-input"
+                className="w-full border border-gray-400/50 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-(--color-primary-500) transition"
               />
             </div>
 
-            <div className="form-group">
-              <label>Track</label>
+            <div>
+              <label className="block text-sm text-gray-800 mb-1">Track</label>
               <input
                 name="track"
                 value={form.track}
                 onChange={handleChange}
                 placeholder="Kindly input your track"
-                className="cr-input"
+                className="w-full border border-gray-400/50 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-(--color-primary-500) transition"
               />
             </div>
           </div>
 
-          <div className="cr-actions">
-            <button type="submit" className="btn btn-primary" disabled={submitting}>
+          {/* Actions */}
+          <div className="flex justify-center pt-4">
+            <button
+              type="submit"
+              className="px-8 py-2 rounded-lg bg-(--color-primary-500) text-white text-sm font-medium shadow-lg hover:shadow-xl hover:bg-blue-700 transition disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+              disabled={submitting}
+            >
               {submitting ? "Submitting..." : "Submit"}
             </button>
           </div>
         </form>
       </div>
-    </div>                             
+    </div>
   );
 };
 
