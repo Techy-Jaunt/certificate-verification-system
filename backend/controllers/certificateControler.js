@@ -1,13 +1,17 @@
-const axios = require('axios');
-const transporter = require('../email/email');
+const axios = require("axios");
+const transporter = require("../email/email");
 const otpGenerator = require('otp-generator');
-const otpCache = require('../utils/otpCache');
+const otpCache = require("../utils/otpCache");
+const dotenv = require("dotenv");
 
+//loads the environmental varibles from the env file
+dotenv.config();
 
 // Data URL for fetching spreadsheet data
-const DATA_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLhwWyD6Xw_PGpaH-oE7N4PFRWkjquyYnU_SSgWnL-JM-_GFesVvxpLPwh_WXVWAInOnyYe_A1HMyyHDgc_4bDswNr0RE4-ZG2nSeOT7R-cfJ048sn8wknLAWxtzZCw1q68CPvZwqwF4XHWp2aMsjAfsgtBfsaJuAhmbqSYVeRVnHqgaeAOZD7C4wqVtIfXt2L1yZ9o07DCrOh4eiPT6fzL4Yz3T1IcWp6yk1vtszEZq1OYYE8tW90t4Wh0YsvnFfFdh6-_aHkVJv6GLovTvyyDZHsXqvw&lib=M2pRTEu2wpogvpviM0pwyO0aiUgZWENdw";
+const DATA_URL = process.env.DATA_URL
 
-exports.validateAlumniDetails = async (req, res) => {
+// Sends Otp
+const validateAlumniDetails = async (req, res) => {
 
     try {
         // Destructure the data
@@ -54,3 +58,61 @@ exports.validateAlumniDetails = async (req, res) => {
 };
 
 
+// Verify Otp
+const verifyAlumniOtpHandler = async (req, res) => {
+  try {
+    const { email, otp } = req.validatedOtpData;
+
+    // Fetch data from the Google Apps Script
+    const response = await axios.get(DATA_URL);
+    if (!response) {
+      return res
+        .status(404)
+        .json({
+          status: "Fail",
+          message: "Error fetching data from google sheet",
+        });
+    }
+    const records = response.data;
+
+    // Ensure records is always an array
+    const dataArray = Array.isArray(records) ? records : [records];
+
+    // Find the Alumni record that matches the provided email
+    const record = dataArray.find(
+      (item) => item.Email?.toLowerCase() === email.toLowerCase()
+    );
+
+    if (!record) {
+      return res
+        .status(404)
+        .json({ status: "Fail", message: "Email not found" });
+    }
+
+    //Checks if otp exists in the cache
+    const otpStatus = otpCache.has(otp)
+    if (!otpStatus) {
+      return res
+        .status(401)
+        .json({ status: "Fail", message: "Otp expired" });;
+    } 
+
+    const url = record.Merged
+
+    // // Send the OTP to the user's email
+    // await transporter.sendMail({
+    //   to: record.Email,
+    //   subject: "Your OTP Code",
+    //   text: `Your OTP code is ${otp}. It is valid for 10 minutes.`,
+    // });
+
+    return res.status(200).json({ status: "success", message: `Certificate sent to ${email}` });
+  } catch (err) {
+    console.error("Handler Error:", err);
+    return res
+      .status(500)
+      .json({ status: "Fail", message: "Internal Server Error" });
+  }
+};
+
+module.exports={verifyAlumniOtpHandler, validateAlumniDetails}

@@ -1,5 +1,9 @@
 const express = require('express');
 const certificateRoutes = require('./routes/certificateRoutes');
+const dotenv = require("dotenv");
+
+//loads the environmental varibles from the env file
+dotenv.config();
 
 const app = express();
 
