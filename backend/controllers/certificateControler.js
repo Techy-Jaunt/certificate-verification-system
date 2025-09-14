@@ -5,25 +5,51 @@ const otpCache = require('../utils/otpCache');
 
 
 // Data URL for fetching spreadsheet data
-const DATA_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLhwWyD6Xw_PGpaH-oE7N4PFRWkjquyYnU_SSgWnL-JM-_GFesVvxpLPwh_WXVWAInOnyYe_A1HMyyHDgc_4bDswNr0RE4-ZG2nSeOT7R-cfJ048sn8wknLAWxtzZCw1q68CPvZwqwF4XHWp2aMsjAfsgtBfsaJuAhmbqSYVeRVnHqgaeAOZD7C4wqVtIfXt2L1yZ9o07DCrOh4eiPT6fzL4Yz3T1IcWp6yk1vtszEZq1OYYE8tW90t4Wh0YsvnFfFdh6-_aHkVJv6GLovTvyyDZHsXqvw&lib=M2pRTEu2wpogvpviM0pwyO0aiUgZWENdw";
+const BASE_URL = "https://script.google.com/macros/s/AKfycbzwlTDLO7SOEIcwo3_CY10ra1374P6C7yS_3d_MttHPtvjbV0AboES6_UXv_aCQC5HO/exec";
 
 exports.validateAlumniDetails = async (req, res) => {
 
     try {
         // Destructure the data
         const { email, cohort, track } = req.body;
+
         if (!email || !cohort || !track) {
             return res.status(400).json({ status: 'error', message: 'Email, cohort, and track are required' });
         }
 
+        // Check type of track
+        if (typeof track !== 'string') {
+            return res.status(400).json({ status: 'error', message: 'Track must be a string' });
+        }
+
+        // set apiUrl based on track
+        let apiUrl = "";
+
+        // Determine the correct API URL based on the track
+        if (track.toLowerCase() === "frontend") {
+            apiUrl = `${BASE_URL}?track=Frontend`;
+        } else if (track.toLowerCase() === "backend") {
+            apiUrl = `${BASE_URL}?track=Backend`;
+        } else if (track.toLowerCase() === "ui/ux") {
+            apiUrl = `${BASE_URL}?track=UI/UX`;
+        } else if (track.toLowerCase() === "product management") {
+            apiUrl = `${BASE_URL}?track=Product Management`;
+        } else if (track.toLowerCase() === "cybersecurity") {
+            apiUrl = `${BASE_URL}?track=Cybersecurity`;
+        } else if (track.toLowerCase() === "data analysis") {
+            apiUrl = `${BASE_URL}?track=Data Analysis`;
+        } else {
+            return res.status(400).json({ status: 'error', message: 'Invalid track provided' });
+        }
+
         // Fetch data from the Google Apps Script
-        const response = await axios.get(DATA_URL);
-        const records = response.data;
+        const response = await axios.get(apiUrl);
+        const data = response.data;
 
         // Ensure records is always an array
-        const dataArray = Array.isArray(records) ? records : [records];
+        const dataArray = Array.isArray(data) ? data : [data];
 
-        // Find the Alumni record that matches the provided email, cohort, and track
+        // Find the Alumni record that matches the provided email, cohort
         const record = dataArray.find(item =>
             item.Email?.toLowerCase() === email.toLowerCase() && String(item.Cohorts) === String(cohort));
 
@@ -33,7 +59,12 @@ exports.validateAlumniDetails = async (req, res) => {
         }
 
         // If a matching record is found, generate a one-time password (OTP) that expires in 10 minutes
-        const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false, lowerCaseAlphabets: false });
+        const otp = otpGenerator.generate(6, { 
+            upperCase: false, 
+            specialChars: false, 
+            lowerCaseAlphabets: false 
+        });
+
         const otpExpiry = Date.now() + 10 * 60 * 1000;
 
         // Store the OTP in the cache
@@ -46,7 +77,7 @@ exports.validateAlumniDetails = async (req, res) => {
             text: `Your OTP code is ${otp}. It is valid for 10 minutes.`,
         });
 
-        return res.status(200).json({ status: 'success', message: 'OTP sent' });
+        return res.status(200).json({ status: 'success', apiUrl, message: 'OTP sent' });
     } catch (err) {
         console.error("Validation Error:", err);
         return res.status(500).json({ status: 'error', message: 'Internal Server Error' });
