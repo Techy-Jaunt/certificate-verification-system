@@ -77,7 +77,7 @@ exports.validateAlumniDetails = async (req, res) => {
             text: `Your OTP code is ${otp}. It is valid for 10 minutes.`,
         });
 
-        return res.status(200).json({ status: 'success', apiUrl, message: 'OTP sent' });
+        return res.status(200).json({ status: 'success', message: 'OTP sent' });
     } catch (err) {
         console.error("Validation Error:", err);
         return res.status(500).json({ status: 'error', message: 'Internal Server Error' });
