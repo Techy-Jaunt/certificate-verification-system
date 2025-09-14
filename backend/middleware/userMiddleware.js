@@ -1,4 +1,4 @@
-const otpInput = require('../utils/inputValidation')
+const otpAuth = require('../utils/inputValidation')
 
 // Function to handle validation errors
 const errorHandler = (error) => {
@@ -12,7 +12,7 @@ const errorHandler = (error) => {
 // ✅ OTP Validation Middleware
 const checkOtpMails = (req, res, next) => {
   try {
-    const { error, value } = otpInput.validate(req.body, {
+    const { error, value } = otpAuth.validate(req.body, {
       abortEarly: false,
     });
     if (error) {
@@ -22,6 +22,7 @@ const checkOtpMails = (req, res, next) => {
     req.validatedOtpData = value;
     next();
   } catch (error) {
+    console.log("Middleware Err", error)
     return res.status(500).json({ message: error.message })
   }
 };

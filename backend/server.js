@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use('/api', certificateRoutes);
+app.use('/v1', certificateRoutes);
 
 
 // Start the server

@@ -1,118 +1,138 @@
 const axios = require("axios");
-const transporter = require("../email/email");
-const otpGenerator = require('otp-generator');
+const otpGenerator = require("otp-generator");
 const otpCache = require("../utils/otpCache");
+const { sendEmail } = require("../email/email");
 const dotenv = require("dotenv");
 
 //loads the environmental varibles from the env file
 dotenv.config();
 
 // Data URL for fetching spreadsheet data
-const DATA_URL = process.env.DATA_URL
+const FRONTEND_DATA_URL = process.env.FRONTEND_DATA_URL;
 
-// Sends Otp
-const validateAlumniDetails = async (req, res) => {
+const BACKEND_DATA_URL = process.env.BACKEND_DATA_URL;
 
-    try {
-        // Destructure the data
-        const { email, cohort, track } = req.body;
-        if (!email || !cohort || !track) {
-            return res.status(400).json({ status: 'error', message: 'Email, cohort, and track are required' });
-        }
+const UI_UX_DATA_URL = process.env.UI_UX_DATA_URL;
 
-        // Fetch data from the Google Apps Script
-        const response = await axios.get(DATA_URL);
-        const records = response.data;
+const PM_DATA_URL = process.env.PM_DATA_URL;
 
-        // Ensure records is always an array
-        const dataArray = Array.isArray(records) ? records : [records];
+const CYBERSECURITY_DATA_URL = process.env.CYBERSECURITY_DATA_URL;
 
-        // Find the Alumni record that matches the provided email, cohort, and track
-        const record = dataArray.find(item =>
-            item.Email?.toLowerCase() === email.toLowerCase() && String(item.Cohorts) === String(cohort));
+const DATA_ANALYSIS_DATA_URL = process.env.DATA_ANALYSIS_DATA_URL;
 
-        // If no matching record is found, return an error response
-        if (!record) {
-            return res.status(404).json({ status: 'error', message: 'Alumni Record not found' });
-        }
 
-        // If a matching record is found, generate a one-time password (OTP) that expires in 10 minutes
-        const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false, lowerCaseAlphabets: false });
-        const otpExpiry = Date.now() + 10 * 60 * 1000;
+//Custom Error
+class CustomError extends Error {
+  constructor(message, statusCode, status) {
+    super(message);
 
-        // Store the OTP in the cache
-        otpCache.set(record.Email, { otp, expiry: otpExpiry });
+    this.statusCode = statusCode;
+    this.status = status;
+    this.isOperational = true;
 
-        // Send the OTP to the user's email
-        await transporter.sendMail({
-            to: record.Email,
-            subject: 'Your OTP Code',
-            text: `Your OTP code is ${otp}. It is valid for 10 minutes.`,
-        });
+    // Capture the stack trace (optional, for debugging)
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
 
-        return res.status(200).json({ status: 'success', message: 'OTP sent' });
-    } catch (err) {
-        console.error("Validation Error:", err);
-        return res.status(500).json({ status: 'error', message: 'Internal Server Error' });
-    }
+// Response helper function
+const responseData = async (url, email, otp, track) => {
+  const response = await axios.get(url);
+  if (!response) {
+    throw new CustomError("Error fetching data from google sheet", 400, "Fail");
+  }
+  const records = response.data;
+
+  // Ensure records is always an array
+  const dataArray = Array.isArray(records) ? records : [records];
+
+  // Find the Alumni record that matches the provided email
+
+  const record = dataArray.find(
+    (item) => item.Email?.toLowerCase() === email.toLowerCase()
+  );
+
+  // Check if email exist
+  if (!record) {
+    throw new CustomError("Email not found", 404, "Fail");
+  }
+
+  //Checks if otp exists in the cache
+  const cachedOtp = otpCache.get(email.toLowerCase());
+  if (
+    !cachedOtp || // nothing stored
+    cachedOtp.otp !== otp || // code mismatch
+    Date.now() > cachedOtp.expiry // expired
+  ) {
+    throw new CustomError("Otp expired or invalid", 401, "Fail");
+  }
+
+  const link = record[`Link to merged Doc - ${track} cert`];
+  console.log("LINK", link);
+
+  // Send the OTP to the user's email
+
+  await sendEmail({
+    to: email,
+    subject: "Your certificate link",
+    html: `<p>Hello,</p><p>Your certificate link is: <strong>${link}</strong>.</p><p>Thank you,<br><strong>TechyJuant</strong></p>`,
+  });
 };
-
 
 // Verify Otp
 const verifyAlumniOtpHandler = async (req, res) => {
   try {
-    const { email, otp } = req.validatedOtpData;
+    let { email, otp, track } = req.validatedOtpData;
 
-    // Fetch data from the Google Apps Script
-    const response = await axios.get(DATA_URL);
-    if (!response) {
-      return res
-        .status(404)
-        .json({
-          status: "Fail",
-          message: "Error fetching data from google sheet",
-        });
-    }
-    const records = response.data;
+    track = track.toLowerCase();
 
-    // Ensure records is always an array
-    const dataArray = Array.isArray(records) ? records : [records];
-
-    // Find the Alumni record that matches the provided email
-    const record = dataArray.find(
-      (item) => item.Email?.toLowerCase() === email.toLowerCase()
-    );
-
-    if (!record) {
-      return res
-        .status(404)
-        .json({ status: "Fail", message: "Email not found" });
+    //Fetch frontend data
+    if (track === "frontend") {
+      //Check if email exists
+      await responseData(FRONTEND_DATA_URL, email, otp, track);
     }
 
-    //Checks if otp exists in the cache
-    const otpStatus = otpCache.has(otp)
-    if (!otpStatus) {
-      return res
-        .status(401)
-        .json({ status: "Fail", message: "Otp expired" });;
-    } 
+    //Fetch backend data
+    else if (track === "backend") {
+      //Check if email exists
+      await responseData(BACKEND_DATA_URL, email, otp, track);
+    }
 
-    const url = record.Merged
+    //Fetch frontend data
+    else if (track === "cybersecurity") {
+      //Check if email exists
+      await responseData(CYBERSECURITY_DATA_URL, email, otp, track);
+    }
 
-    // // Send the OTP to the user's email
-    // await transporter.sendMail({
-    //   to: record.Email,
-    //   subject: "Your OTP Code",
-    //   text: `Your OTP code is ${otp}. It is valid for 10 minutes.`,
-    // });
+    //Fetch frontend data
+    else if (track === "ui/ux") {
+      //Check if email exists
+      await responseData(UI_UX_DATA_URL, email, otp, track);
+    }
 
-    return res.status(200).json({ status: "success", message: `Certificate sent to ${email}` });
+    //Fetch product management data
+    else if (track === "product management") {
+      //Check if email exists
+      await responseData(PM_DATA_URL, email, otp, track);
+    }
+
+    //Fetch data analysis data
+    else if (track === "data analysis") {
+      //Check if email exists
+      await responseData(DATA_ANALYSIS_DATA_URL, email, otp, track);
+    } else {
+      res.status(404).json({ message: "Track does not exist" });
+      return;
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: `Certificate link sent to ${email}`,
+    });
   } catch (err) {
     console.error("Handler Error:", err);
-    return res
-      .status(500)
-      .json({ status: "Fail", message: "Internal Server Error" });
+    throw new CustomError(err.message, 500, "Fail");
   }
 };
 
-module.exports={verifyAlumniOtpHandler, validateAlumniDetails}
+module.exports = { verifyAlumniOtpHandler };
