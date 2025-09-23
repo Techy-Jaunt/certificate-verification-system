@@ -11,6 +11,7 @@ import { ErrorPopUp } from "./modals/ErrorPopup";
 import CertificateVerificationPreview from "./pages/CertificateVerificationPreview";
 import RecruiterCertificatePreview from "./pages/RecruiterCertificatePreview";
 import Navbar from "./components/Navbar";
+import Otp from "./modals/otp";
 
 function AppRoutes() {
   return (
@@ -43,6 +44,10 @@ function AppRoutes() {
         <Route
           path="/certificate-success-verification"
           element={<CertificateVerificationSuccess />}
+        />
+        <Route
+          path="/otp"
+          element={<Otp />}
         />
         {/* error modal  */}
         <Route path="/error-popup" element={<ErrorPopUp />} />
