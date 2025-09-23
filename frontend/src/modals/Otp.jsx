@@ -1,24 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { FaTimes } from "react-icons/fa";
 
 const Otp = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [verifyOtp, setVerifyOtp] = useState("Verify Otp");
+
+  // Just Testing the different states with the two expressions immediately below
+  const [ otpOk, setOtpOk ] = useState(true);
+  const [ isSuccess, setIsSuccess ] = useState(false);
+
   const [otp, setOtp] = useState("");
   const isValidOtp = /^\d{6}$/.test(otp);
 
   const navigate = useNavigate();
+  const timerRef = useRef(null);
 
   const handleCloseBtnClick = () => {
     setIsOpen((prev) => !prev);
     navigate("/");
   };
 
+  const handleVerifyBtnClick = () => {
+   // Just Testing the different states with the two expressions immediately below
+    setOtpOk(prev => !prev);
+    setIsSuccess(prev => !prev);
+
+    setVerifyOtp("Verifying....");
+
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    timerRef.current = setTimeout(() => {
+      setVerifyOtp("Verify Otp");
+      timerRef.current = null;
+    }, 3000);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
   return (
     <>
       {isOpen && (
         <div className="h-[calc(100vh-4.2rem)] px-4 flex flex-col items-center justify-center border">
-          (<div className="overlay bg-black opacity-65 absolute inset-0"></div>
+          <div className="overlay bg-black opacity-65 absolute inset-0"></div>
           <div className="bg-white w-96 max-w-full px-10 py-6 flex flex-col gap-2 relative rounded-md">
             <button
               className="p-1 absolute top-5 right-4 cursor-pointer"
@@ -34,19 +62,25 @@ const Otp = () => {
                 OTP Code
               </label>
               <input
-                type="number"
+                type="text"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
                 placeholder="000000"
                 className="h-8 text-center border rounded-md"
               />
+              <div className={`${otpOk? "bloxk" : "hidden"}`}>
+              {isSuccess? (<span className="w-max bg-[#E1F7E2] text-[#09A311] px-2 rounded-lg">Verification complete</span>) : (<span className="w-max bg-[#FCE1E1] text-[#D32F2F] px-2 rounded-lg">Incorrect Otp</span>)}
+              </div>
               <button
-              disabled={!isValidOtp}
+                disabled={!isValidOtp}
                 className={`${
                   isValidOtp ? "bg-[#0667D6]" : "bg-[#686868]"
-                } text-white h-8 rounded-md`}
+                } text-white h-8 rounded-md ${
+                  isValidOtp ? "cursor-pointer" : "cursor-auto"
+                }`}
+                onClick={handleVerifyBtnClick}
               >
-                Verify OTP
+                {verifyOtp}
               </button>
             </div>
           </div>
