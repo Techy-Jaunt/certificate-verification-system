@@ -13,7 +13,7 @@ const AlumniComm = () => {
         opportunities, mentorship, and continuous learning.
       </p>
       <div className="flex items-center justify-center">
-        <button className="w-[320px] bg-[#9f068b] rounded-[10px] text-white mt-7.5 flex items-center justify-center gap-[10px] px-5 py-[13px] md:px-8 md:py-5 text-base md:text-[20px] font-bold">
+        <button className="w-[320px] bg-[#9f068b] rounded-[10px] text-white mt-7.5 flex items-center justify-center gap-[10px] px-2 py-[13px]  md:py-5 text-base md:text-[20px] font-bold">
           <img src="/icons/alumni.svg" className="h-6 w-6" />
           <span>Join Alumni Community</span>
         </button>
