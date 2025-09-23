@@ -132,7 +132,7 @@ export default function Events() {
 
       {/* Footer CTA */}
       <div className="text-center mt-12">
-        <button className="mt-6 text-blue-600 font-medium border border-blue-600 rounded-lg py-3 px-6 bg-transparent cursor-pointer transition-all hover:bg-blue-50">
+        <button className="mt-6 text-blue-600 font-medium border-2 border-black/10 rounded-lg py-3 px-6 bg-transparent cursor-pointer transition-all hover:bg-blue-50">
           View Past Event
         </button>
       </div>
