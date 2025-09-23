@@ -4,6 +4,7 @@ import AlumniCommunity from "../components/AlumniCommunity";
 import Events from "../components/Upcomingalumnievent";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import AlumniComm from "../components/AlumniComm";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
         <HeroSection />
         <AlumniCommunity />
         <Events />
+        <AlumniComm />
         <Footer />
       </div>
     </>
