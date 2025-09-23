@@ -1,11 +1,11 @@
 import React from "react";
-import { Route, Routes } from "react-router";
-
-import SuccessDownloadAlumni from "./modals/SuccessDownloadAlumni";
-import CertificateVerificationSuccess from "./modals/CertificateVerificationSuccess";
+import {  Route, Routes } from "react-router";
 import Home from "./pages/Home";
 import RecruiterSearch from "./pages/RecruiterSearch";
+import CertificatePreview from "./pages/CertificatePreview";
 import CertificateRequest from "./pages/CertificateRequest";
+import CertificateDownload from "./modals/SuccessDownloadAlumni";
+import CertificateVerification from "./modals/CertificateVerificationSuccess";
 import RecruiterSearchResults from "./pages/RecruiterSearchResults";
 import { ErrorPopUp } from "./modals/ErrorPopup";
 import CertificateVerificationPreview from "./pages/CertificateVerificationPreview";
