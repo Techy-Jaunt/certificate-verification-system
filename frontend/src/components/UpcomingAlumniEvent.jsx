@@ -1,6 +1,6 @@
 import { MdLocationOn } from "react-icons/md";
 
-export const Events = () => {
+ const Events = () => {
   const events = [
     {
       tag: "UI/UX Design",
@@ -139,3 +139,5 @@ export const Events = () => {
     </div>
   );
 }
+
+export default Events;

@@ -1,7 +1,7 @@
 import React from "react";
 import HeroSection from "../components/HeroSection";
 import AlumniCommunity from "../components/AlumniCommunity";
-import Events from../components/UpcomingAlumniEventent";
+import Events from "../components/UpcomingAlumniEvent";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import AlumniComm from "../components/AlumniComm";
