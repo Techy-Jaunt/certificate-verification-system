@@ -6,7 +6,7 @@ import SuccessDownloadAlumni from "./modals/SuccessDownloadAlumni";
 import CertificateVerificationSuccess from "./modals/CertificateVerificationSuccess";
 import Home from "./pages/Home";
 import RecruiterSearch from "./pages/RecruiterSearch";
-import CertificatePreview from "./pages/CertificatePreview";
+// import CertificatePreview from "./pages/CertificatePreview"; page does not exist yet
 import CertificateRequest from "./pages/CertificateRequest";
 import CertificateDownload from "./modals/SuccessDownloadAlumni";
 import CertificateVerification from "./modals/CertificateVerificationSuccess";
