@@ -1,6 +1,6 @@
 import { MdLocationOn } from "react-icons/md";
 
-export default function Events() {
+export const Events = () => {
   const events = [
     {
       tag: "UI/UX Design",
