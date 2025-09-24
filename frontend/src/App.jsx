@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router";
 
+import { CertificateDownloadForm } from "./pages/CertificateDownloadForm";
 import SuccessDownloadAlumni from "./modals/SuccessDownloadAlumni";
 import CertificateVerificationSuccess from "./modals/CertificateVerificationSuccess";
 import Home from "./pages/Home";
@@ -34,6 +35,7 @@ function AppRoutes() {
           path="/recruiter-certificate-preview"
           element={<RecruiterCertificatePreview />}
         />
+        <Route path="/download-certificate" element={<CertificateDownloadForm />} />
 
         {/* success modal */}
         <Route
