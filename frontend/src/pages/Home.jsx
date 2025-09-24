@@ -1,7 +1,7 @@
 import React from "react";
 import HeroSection from "../components/HeroSection";
 import AlumniCommunity from "../components/AlumniCommunity";
-import Events from "../components/Upcomingalumnievent";
+import Events from "../components/UpcomingAlumniEvent";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import AlumniComm from "../components/AlumniComm";
@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       <div>
-        {/* <Navbar /> */}
+        {/* <Navbar />*/}
         <HeroSection />
         <AlumniCommunity />
         <Events />
@@ -22,3 +22,4 @@ const Home = () => {
 };
 
 export default Home;
+
