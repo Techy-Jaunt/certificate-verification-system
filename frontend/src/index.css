@@ -1,1 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@400;600&display=swap');
+
 @import "tailwindcss";
+
+
+body {
+  font-family: Istok Web, sans-serif;
+}
+
+
+@theme {
+  --color-light: #ffffff;
+  --color-light-hover: #ffffff;
+  --color-light-active: #fffafa;
+
+  --color-normal: #ffffff;
+  --color-normal-hover: #e6e6e6;
+  --color-normal-active: #cccccc;
+  --color-foundation-background: #f5fbfd;
+
+  --color-dark: #bfbfbf;
+  --color-dark-brown: #d9d9d9;
+  --color-dark-hover: #999999;
+  --color-dark-active: #737373;
+  --color-darker: #595959;
+  --color-darkened: #121212;
+
+  --color-primary-50: #ebf0ff;
+  --color-primary-100: #bdb0ff;
+  --color-primary-150: #e6e6ff;
+  --color-primary-200: #8a8aff;
+  --color-primary-300: #5454fe;
+  --color-primary-400: #3333fe;
+  --color-primary-500: #0000fe;
+  --color-primary-600: #0000e7;
+  --color-primary-700: #0000b4;
+  --color-primary-800: #00008c;
+  --color-primary-850: #060c43;
+  --color-primary-900: #00006b;
+  --color-primary-950: #0667d6;
+
+  --color-success: #2f7d32;
+  --color-success-light: #a3f5a7;
+  --color-error: #d32f2f;
+  --color-warning: #b36b00;
+  --color-background-alt: #9ca3af;
+  --color-card: #ffffff;
+}
