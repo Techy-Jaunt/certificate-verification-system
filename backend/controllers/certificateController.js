@@ -10,7 +10,9 @@ const dotenv = require("dotenv");
 const BASE_URL =
   "https://script.google.com/macros/s/AKfycbzwlTDLO7SOEIcwo3_CY10ra1374P6C7yS_3d_MttHPtvjbV0AboES6_UXv_aCQC5HO/exec";
 
-exports.validateAlumniDetails = async (req, res) => {
+
+
+const validateAlumniDetails = async (req, res) => {
   try {
     // Destructure the data
     const { email, cohort, track } = req.body;
@@ -105,18 +107,7 @@ exports.validateAlumniDetails = async (req, res) => {
 //loads the environmental varibles from the env file
 dotenv.config();
 
-// Data URL for fetching spreadsheet data
-const FRONTEND_DATA_URL = process.env.FRONTEND_DATA_URL;
 
-const BACKEND_DATA_URL = process.env.BACKEND_DATA_URL;
-
-const UI_UX_DATA_URL = process.env.UI_UX_DATA_URL;
-
-const PM_DATA_URL = process.env.PM_DATA_URL;
-
-const CYBERSECURITY_DATA_URL = process.env.CYBERSECURITY_DATA_URL;
-
-const DATA_ANALYSIS_DATA_URL = process.env.DATA_ANALYSIS_DATA_URL;
 
 //Custom Error
 class CustomError extends Error {
@@ -375,5 +366,10 @@ const getDetailsHandler = async (req, res) => {
   }
 };
 
-module.exports = { verifyAlumniOtpHandler, getDetailsHandler };
+// module.exports = { verifyAlumniOtpHandler, getDetailsHandler };
+module.exports = { 
+  validateAlumniDetails, 
+  verifyAlumniOtpHandler, 
+  getDetailsHandler 
+};
 
