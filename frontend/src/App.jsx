@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import CertificateVerification from "./modals/CertificateVerificationSuccess";
 import CertificateDownload from "./modals/SuccessDownloadAlumni";
-import CertificatePreview from "./pages/CertificatePreview";
+//import CertificatePreview from "./pages/CertificatePreview";
 import CertificateRequest from "./pages/CertificateRequest";
 import Home from "./pages/Home";
 import RecruiterSearch from "./pages/RecruiterSearch";
