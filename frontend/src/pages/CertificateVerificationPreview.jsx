@@ -28,7 +28,6 @@ const CertificateVerificationPreview = () => {
             <LuChevronLeft size={18} />
             <span>Back</span>
           </div>
-
           {/* Title */}
           <h1 className="text-center text-2xl font-bold mb-8 ">Certificate</h1>
 
