@@ -17,6 +17,10 @@ app.use(cors(corsOptions));
 
 // Routes
 app.use('/api', certificateRoutes);
+app.get('/', (req, res) => {
+  res.send('Backend API is running 🚀');
+});
+
 
 
 // Start the server

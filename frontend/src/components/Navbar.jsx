@@ -31,6 +31,33 @@ const Navbar = () => {
             Home
           </NavLink>
         </li>
+
+        <li className="">
+          <NavLink
+            to={"/about"}
+            className={({ isActive }) =>
+              isActive
+                ? "text-(--color-primary-500) rounded-md hover:bg-(--color-primary-50) font-medium py-2 px-2"
+                : "text-(--color-darkened) rounded-md hover:bg-(--color-primary-50) font-medium py-2 px-2"
+            }
+          >
+            About
+          </NavLink>
+        </li>
+
+        <li className="">
+          <NavLink
+            to={"/download-certificate"}
+            className={({ isActive }) =>
+              isActive
+                ? "text-(--color-primary-500) rounded-md hover:bg-(--color-primary-50) font-medium py-2 px-2"
+                : "text-(--color-darkened) rounded-md hover:bg-(--color-primary-50) font-medium py-2 px-2"
+            }
+          >
+           Download Certificate
+          </NavLink>
+        </li>
+
         <li className="">
           <NavLink
             to={"/recruiter-search"}
@@ -43,6 +70,7 @@ const Navbar = () => {
             Verify Graduates
           </NavLink>
         </li>
+
       </ul>
 
       <div
@@ -79,6 +107,35 @@ const Navbar = () => {
               Home
             </NavLink>
           </li>
+
+          <li className="">
+            <NavLink
+              onClick={() => setIsOpen(false)}
+              to={"/about"}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-(--color-primary-500) rounded-md hover:bg-(--color-primary-50) font-medium py-2 px-2"
+                  : "text-(--color-darkened) rounded-md hover:bg-(--color-primary-50) font-medium py-2 px-2"
+              }
+            >
+              About
+            </NavLink>
+          </li>
+
+          <li className="">
+            <NavLink
+              onClick={() => setIsOpen(false)}
+              to={"/download-certificate"}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-(--color-primary-500) rounded-md hover:bg-(--color-primary-50) font-medium py-2 px-2"
+                  : "text-(--color-darkened) rounded-md hover:bg-(--color-primary-50) font-medium py-2 px-2"
+              }
+            >
+              Download Certificate
+            </NavLink>
+          </li>
+
           <li className="">
             <NavLink
               onClick={() => setIsOpen(false)}
@@ -92,6 +149,7 @@ const Navbar = () => {
               Verify Graduates
             </NavLink>
           </li>
+
         </ul>
       </div>
     </nav>

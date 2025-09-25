@@ -9,4 +9,5 @@ router.post('/certificate/request', validateAlumniDetails);
 router.post('/certificate/verify-otp', checkOtpMails, verifyAlumniOtpHandler);
 router.get('/certificate/verify', trackInputValidation, checkQueryInputs, getDetailsHandler);
 
+
 module.exports = router;
