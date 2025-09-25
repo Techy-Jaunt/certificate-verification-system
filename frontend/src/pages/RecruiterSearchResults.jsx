@@ -28,41 +28,13 @@ const RecruiterSearchResults = () => {
     setOpenModal(true);
   };
   return (
-    <>
-      <div className="bg-light min-h-screen xl:px-[175px] lg:px-16 xl:pt-25 lg:pt-15 pt-7.5 xl:pb-[58px] lg:pb-10">
+    <div className="absolute inset-0 bg-black/40 flex justify-center pt-[507px] h-[3500px]">
+      <div className="bg-light max-h-fit w-full rounded-[20px] xl:max-w-[1070px] xl:px-5 lg:px-5 xl:pt-7.5 lg:pt-5 pt-5 xl:pb-[56px] lg:pb-10">
         {/* Main Title */}
-        <h1 className="text-xl md:text-3xl font-bold mx-auto text-primary-950 text-center mb-7.5 md:mb-15">
-          Recruiter Search Results
+        <h1 className="text-xl md:text-4xl font-bold mx-auto text-primary-950 text-center mb-7.5 md:mb-[42px]">
+          Alumni Certificate
         </h1>
-        <div className="bg-(--color-dark-brown) rounded-lg px-[15px] py-2.5 md:px-[50px] md:py-7.5 max-w-[1090px] w-full mx-auto">
-          {/* Search Bar Section */}
-          <form className="grid grid-cols-[2fr_1fr] md:grid-cols-[3fr_2fr_2fr] xl:grid-cols-[5fr_3fr_2fr] items-center gap-4 md:gap-0">
-            <div className="bg-(--color-light-active) relative w-full rounded-lg md:rounded-none md:rounded-l-lg order-1 border-r-2 border-[#d9d9d9]">
-              <input
-                type="text"
-                placeholder="Name"
-                className="w-full pl-16  pr-1 py-2 text-lg focus:outline-none focus-within:border-b-2 border-b-2 border-transparent focus-within:border-primary-500"
-              />
-              {/* Search Icon */}
-              <RiSearch2Line className="h-6  w-6  text-primary-500 absolute left-5 top-3 cursor-pointer" />
-            </div>
-            <div className="bg-(--color-light-active) sm:w-full rounded-lg md:rounded-none md:rounded-r-lg order-3 md:order-2 col-span-2 md:col-span-1 w-[300px] overflow-clip">
-              <input
-                type="text"
-                placeholder="Cohort"
-                className="w-full pl-5 pr-1 py-2 border-transparent text-lg
-               focus:outline-none focus-within:border-b-primary-500 focus-within:border-b-2 border-b-2 "
-              />
-            </div>
-            <button className="w-full  h-[46px] flex-1/3 md:flex-1/6 ml-0 md:ml-[18px] bg-primary-500 hover:opacity-80 transition-discrete text-white text-base rounded-lg order-2 md:order-3">
-              Search
-            </button>
-          </form>
-
-          {/* Results Section */}
-          <h2 className="text-xl sm:text-2xl  font-semibold text-darkened px-5 my-[25px]">
-            Matched Alumni Records
-          </h2>
+        <div className="bg-(--color-dark-brown) rounded-lg px-[15px] py-2.5 md:px-[50px] md:py-[45px] max-w-[1030px] w-full mx-auto">
           {/* {Alumni Record table heading} */}
           <div className="hidden md:grid grid-cols-[2fr_2fr_3fr] xl:grid-cols-[2fr_2fr_5fr] items-center pb-3 px-5 gap-5 font-bold text-lg sm:text-xl">
             <span>Name</span>
@@ -123,7 +95,7 @@ const RecruiterSearchResults = () => {
                   {/* View Certificate Button */}
                   <button
                     onClick={handleViewCertificate}
-                    className="flex items-center justify-center gap-2 px-4 py-2 w-[150%] sm:w-[216px] bg-primary-500 hover:opacity-80 transition-discrete text-white text-sm rounded-lg cursor-pointer"
+                    className="flex items-center justify-center gap-1 px-2 py-2 w-full sm:w-[216px] bg-primary-500 hover:opacity-80 transition-discrete text-white text-sm rounded-lg cursor-pointer"
                   >
                     {/* View Icon */}
                     <RiEyeLine size={20} />
@@ -146,7 +118,7 @@ const RecruiterSearchResults = () => {
           setOpenModal={setOpenModal}
         />
       </div>
-    </>
+    </div>
   );
 };
 

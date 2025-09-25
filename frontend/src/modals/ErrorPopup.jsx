@@ -1,20 +1,21 @@
 import React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
+import "../index.css";
 
 export const ErrorPopUp = ({ onClose }) => {
   const navigate = useNavigate();
 
   const handleTryAgain = () => {
     navigate("#"); // 👈 change this to the page you want
-  };
+  };                      
 
   return (
-    <div className="fixed inset-0 bg-[#0c030350]  bg-opacity-75 flex justify-center items-center p-4 z-50">
+    <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex justify-center items-center p-4 z-50">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-sm overflow-hidden relative">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+          className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition-colors"
           aria-label="Close modal"
         >
           <svg
@@ -49,8 +50,8 @@ export const ErrorPopUp = ({ onClose }) => {
 
           {/* Try Again Button */}
           <button
-            onClick={handleTryAgain}
-            className="bg-(--color-primary-500) text-white font-medium py-1 px-6 rounded-md hover:bg-(--color-primary-400) transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer"
+            onClick={handleTryAgain} 
+            className="bg-blue-600 text-white font-medium py-2 px-6 rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             Try again
           </button>
