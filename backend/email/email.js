@@ -7,7 +7,7 @@ dotenv.config();
  const transporter = nodeMailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: process.env.EMAIL_PORT,
-        secure: process.env.EMAIL_SECURE,
+        secure: process.env.EMAIL_SECURE===true,
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS
@@ -32,7 +32,7 @@ const sendEmail = async (emailOptions) => {
     try {
         const { to, subject, text, html } = emailOptions;
         const mailOptions = {
-            from: process.env.SMTP_USER,
+            from: process.env.EMAIL_USER,
             to: emailOptions.to,
             subject: emailOptions.subject,
             text: emailOptions.text,
