@@ -9,7 +9,7 @@ import AlumniComm from "../components/AlumniComm";
 const Home = () => {
   return (
     <>
-      <div>
+      <div className="relative">
         {/* <Navbar />*/}
         <HeroSection />
         <AlumniCommunity />
@@ -22,4 +22,3 @@ const Home = () => {
 };
 
 export default Home;
-

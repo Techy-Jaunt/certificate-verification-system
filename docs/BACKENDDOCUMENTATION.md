@@ -4,7 +4,8 @@
 This API provides endpoints for alumni verification and certificate retrieval. The system validates alumni credentials, sends OTPs for authentication, and provides certificate links via email.
 
 ## Base URL
-`https://backend-domain.com` (Replace with actual deployment URL)
+[Base URL](https://certificate-verification-system-m7s7.onrender.com/)
+
 
 ## Authentication
 No initial authentication required. Uses OTP (One-Time Password) verification for secure access.

@@ -1,5 +1,4 @@
 const axios = require("axios");
-const transporter = require("../email/email");
 const otpGenerator = require("otp-generator");
 const otpCache = require("../utils/otpCache");
 const { sendEmail } = require("../email/email");
@@ -89,7 +88,7 @@ const validateAlumniDetails = async (req, res) => {
     otpCache.set(record.Email, { otp, expiry: otpExpiry });
 
     // Send the OTP to the user's email
-    await transporter.sendMail({
+    await sendMail({
       to: record.Email,
       subject: "Your OTP Code",
       text: `Your OTP code is ${otp}. It is valid for 10 minutes.`,
