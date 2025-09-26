@@ -15,7 +15,7 @@ import { ErrorPopUp } from "./modals/ErrorPopup";
 import CertificateVerificationPreview from "./pages/CertificateVerificationPreview";
 import RecruiterCertificatePreview from "./pages/RecruiterCertificatePreview";
 import Navbar from "./components/Navbar";
-import Otp from "./modals/Otp"; 
+import Otp from "./modals/Otp";
 
 function AppRoutes() {
   return (
@@ -56,6 +56,8 @@ function AppRoutes() {
         />
         {/* error modal  */}
         <Route path="/error-popup" element={<ErrorPopUp />} />
+        {/* Event Registration Modal */}
+        
       </Routes>
     </>
   );
