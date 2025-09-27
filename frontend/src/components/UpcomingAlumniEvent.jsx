@@ -1,6 +1,11 @@
 import { MdLocationOn } from "react-icons/md";
+import EventModal from "../modals/Event-modals";
+import { useState } from "react";
 
- const Events = () => {
+
+
+const Events = () => {
+  const [selectedEvent, setSelectedEvent] = useState(null) 
   const events = [
     {
       tag: "UI/UX Design",
@@ -89,7 +94,7 @@ import { MdLocationOn } from "react-icons/md";
 
             {/* Title */}
             <h2 className="mt-4 text-base font-semibold text-gray-900">
-              {event.title}
+              {event.tag}
             </h2>
 
             {/* Description */}
@@ -122,12 +127,15 @@ import { MdLocationOn } from "react-icons/md";
 
             {/* Button */}
             <div className="mt-6">
-              <button className="bg-blue-600 w-full text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+              <button onClick={() => setSelectedEvent(event)} className="bg-blue-600 w-full text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
                 Register for Event
               </button>
             </div>
           </div>
         ))}
+        {selectedEvent && (
+          <EventModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />
+        )}
       </div>
 
       {/* Footer CTA */}
