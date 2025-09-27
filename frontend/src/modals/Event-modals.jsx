@@ -1,5 +1,18 @@
+import { GoCheck } from "react-icons/go";
+import { useEffect, useState } from "react";
+
+
 const EventModal = ({ event, onClose }) => {
     if (!event) return null; // don't render if no event selected
+      const [text, setText] = useState("");
+  const maxChars = 500;
+
+   useEffect(() => {
+      document.body.style.overflow = "hidden"; // lock scroll
+      return () => {
+        document.body.style.overflow = "auto"; // restore when modal closes
+      };
+    }, []);
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
@@ -14,7 +27,7 @@ const EventModal = ({ event, onClose }) => {
                         ✕
                     </button>
                 </div>
-                <p className="text-blue-600 font-semibold">{event.tag}</p>
+                <p className="text-primary-950 font-semibold">{event.tag}</p>
                 <p className="text-sm text-gray-600 mb-4">
                     {event.date}, at {event.time}
                 </p>
@@ -52,13 +65,22 @@ const EventModal = ({ event, onClose }) => {
                         placeholder="Share your expectations and thoughts..."
                         className="w-full border border-gray-300 rounded-lg px-3 py-2"
                         rows="3"
+                        value={text}
+        onChange={(e) => setText(e.target.value.slice(0, maxChars))} // prevent exceeding limit
+      
                     ></textarea>
-                    <p className="text-sm text-gray-400 pb-8 m-1">0/500 characters</p>
+                    <p
+        className={`text-sm m-1 pb-2 ${
+          text.length === maxChars ? "text-red-500" : "text-gray-400"
+        }`}
+      >
+        {text.length}/{maxChars} characters
+      </p>
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+                        className="w-full flex justify-center items-center gap-2 bg-primary-950 text-white py-2 rounded-lg hover:bg-blue-700"
                     >
-                        Register Now
+                      <GoCheck />  Register Now
                     </button>
                 </form>
             </div>

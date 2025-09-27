@@ -22,7 +22,7 @@ const Footer = () => {
       <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[auto_1fr_auto] gap-x-16 gap-y-10 md:gap-y-28 items-start justify-between">
         <div className=" flex flex-col gap-3 md:max-w-md">
           <div className="flex gap-1 items-center">
-            <p className="font-semibold text-2xl md:text-[32px] font-[Poppins]">
+            <p className="font-semibold text-xl md:text-2xl font-[Poppins]">
               Techy
               <span className="font-normal">Jaunt</span>
             </p>
@@ -65,7 +65,7 @@ const Footer = () => {
         </div>
 
         <div className=" flex flex-col gap-4 md:justify-self-center ">
-          <h1 className="text-2xl md:text-3xl font-bold">Explore</h1>
+          <h1 className="text-xl md:text-2xl font-bold">Explore</h1>
           <div className="flex flex-col gap-3 self-start">
             {Explores.map((explore) => (
               <a
@@ -81,7 +81,7 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col gap-4 w-full max-w-xs">
-          <h1 className="text-2xl md:text-3xl md:text-2xl font-bold">Subscribe</h1>
+          <h1 className="text-xl  md:text-2xl font-bold">Subscribe</h1>
           <p className="text-sm md:text-base">
             Stay informed about the happenings in African tech space
           </p>

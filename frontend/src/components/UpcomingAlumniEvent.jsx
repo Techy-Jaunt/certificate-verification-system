@@ -1,4 +1,3 @@
-import { MdLocationOn } from "react-icons/md";
 import EventModal from "../modals/Event-modals";
 import { useState } from "react";
 
@@ -16,7 +15,7 @@ const Events = () => {
       time: "6:00 PM - 8:00 PM",
       isVirtual: true,
       location: "",
-      attending: 45,
+      attending: 45,    
     },
     {
       tag: "Frontend Development",
@@ -51,12 +50,12 @@ const Events = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
+    <div className="w-full sm:w-[90%]  mx-auto py-16 " id="about">
       {/* About section */}
-      <h2 className="text-3xl font-bold text-center">
-        About <span className="text-blue-600">TechyJaunt Alumni</span>
+      <h2 className="text-3xl font-bold text-center" >
+        About <span className="text-primary-950">TechyJaunt Alumni</span>
       </h2>
-      <p className="mt-4 text-center text-gray-700 max-w-3xl mx-auto">
+      <p className="mt-4 text-center text-gray-700 pt-2 px-5 sm:px-0 mx-auto">
         The TechyJaunt Alumni Community is a vibrant network of over 1,000
         graduates who have successfully completed our intensive technology
         training programs. Our alumni work at leading tech companies, have
@@ -68,23 +67,24 @@ const Events = () => {
 
       {/* Upcoming Events heading */}
       <h1 className="text-3xl font-bold text-center mt-16">
-        Upcoming <span className="text-blue-600">Alumni Events</span>
+        Upcoming <span className="text-primary-950">Alumni Events</span>
       </h1>
-      <p className="mt-4 mb-10 text-center text-gray-700">
+      <p className="mt-4 mb-10 text-center pt-2 text-gray-700 px-5 sm:px-0">
         Join your track community and attend exclusive events designed for
         continuous learning and networking
       </p>
 
       {/* Event cards */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10 justify-items-center">
         {events.map((event, i) => (
           <div
             key={i}
-            className="rounded-xl shadow border border-gray-200 p-6 bg-white max-w-sm w-full"
+            className="flex flex-col justify-between rounded-xl shadow border border-gray-200 p-6 bg-white max-w-sm w-full"
           >
-            {/* Tag and Attending */}
+            <div className="">
+  {/* Tag and Attending */}
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium px-3 py-1 rounded-lg bg-blue-100 text-blue-700">
+              <span className="text-xs font-medium px-3 py-1 rounded-lg bg-primary-150 text-primary-900">
                 {event.tag}
               </span>
               <p className="text-sm text-gray-500">
@@ -99,6 +99,8 @@ const Events = () => {
 
             {/* Description */}
             <p className="mt-2 text-sm text-gray-600">{event.description}</p>
+            </div>
+          
 
             {/* Details */}
             <div className="mt-4 space-y-1 text-sm text-gray-600">
@@ -127,7 +129,7 @@ const Events = () => {
 
             {/* Button */}
             <div className="mt-6">
-              <button onClick={() => setSelectedEvent(event)} className="bg-blue-600 w-full text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+              <button onClick={() => setSelectedEvent(event)} className="bg-primary-950 w-full text-white py-2 px-4 rounded-lg hover:bg-primary-950/80 transition text-sm font-medium">
                 Register for Event
               </button>
             </div>
@@ -140,7 +142,7 @@ const Events = () => {
 
       {/* Footer CTA */}
       <div className="text-center mt-12">
-        <button className="mt-6 text-blue-600 font-medium border-2 border-black/10 rounded-lg py-3 px-6 bg-transparent cursor-pointer transition-all hover:bg-blue-50">
+        <button className="mt-6 text-sm font-semibold text-primary-950 font-medium border border-secondary-100 rounded-lg py-3 px-6 bg-transparent cursor-pointer transition-all hover:bg-blue-50">
           View Past Event
         </button>
       </div>

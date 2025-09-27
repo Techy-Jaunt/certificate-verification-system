@@ -2,7 +2,10 @@
 
 @import "tailwindcss";
 
+html{
 
+  scroll-behavior: smooth;
+}
 body {
   font-family: Istok Web, sans-serif;
 }
@@ -28,7 +31,7 @@ body {
   --color-primary-50: #ebf0ff;
   --color-primary-100: #bdb0ff;
   --color-primary-150: #e6e6ff;
-  --color-primary-200: #8a8aff;
+  --color-primary-200: #8a8aff; 
   --color-primary-300: #5454fe;
   --color-primary-400: #3333fe;
   --color-primary-500: #0000fe;
@@ -38,6 +41,9 @@ body {
   --color-primary-850: #060c43;
   --color-primary-900: #00006b;
   --color-primary-950: #0667d6;
+  --color-secondary-50: #8B0C87;
+  --color-secondary-100: #8989FD;
+  --color-secondary-150: #9F068B;
 
   --color-success: #2f7d32;
   --color-success-light: #a3f5a7;
