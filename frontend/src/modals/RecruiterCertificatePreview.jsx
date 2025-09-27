@@ -1,15 +1,25 @@
+import { useEffect } from "react";
 import { LuChevronLeft, LuShieldCheck, LuX } from "react-icons/lu";
-import { useNavigate } from "react-router";
 
-const RecruiterCertificatePreview = () => {
-  const navigate = useNavigate();
+
+const RecruiterCertificatePreview = ({closeCertificatePreview, setRecruiterSearch}) => {
+ 
   const handleGoBack = () => {
-    navigate(-1);
+   setRecruiterSearch(true)
+   closeCertificatePreview()
   };
 
+ 
+    useEffect(() => {
+      document.body.style.overflow = "hidden"; // lock scroll
+      return () => {
+        document.body.style.overflow = "auto"; // restore when modal closes
+      };
+    }, []);
+
   return (
-    <div className="min-h-screen  flex items-center justify-center px-4">
-      <div className="w-full max-w-[1000px] min-h-screen bg-[#E6E6E6] py-4 md:py-20 px-[124px] rounded-2xl">
+     <div className="fixed z-40 inset-0 flex items-center justify-center bg-black/50">
+      <div className="w-[90%] md:w-2/3 lg:w-[700px] min-h-fit bg-[#E6E6E6] p-10 rounded-2xl">
         
         <div className="flex items-center justify-between mb-9">
           {/* Back Button */}
@@ -22,7 +32,7 @@ const RecruiterCertificatePreview = () => {
           </div>
 
           {/* Close Button */}
-          <button className="cursor-pointer hover:text-(--color-dark-hover)" onClick={() => navigate('/')}>
+          <button className="cursor-pointer hover:text-(--color-dark-hover)" onClick={closeCertificatePreview}>
             <LuX  />
           </button>
         </div>
@@ -40,7 +50,7 @@ const RecruiterCertificatePreview = () => {
 
         {/* Certificate Preview Box */}
         <div className="flex justify-center">
-          <div className="w-full max-w-[650px] bg-white h-[400px] border border-(--color-primary-950) flex items-center justify-center rounded-xs">
+          <div className="w-[90%]  bg-white h-[250px] border border-(--color-primary-950) flex items-center justify-center rounded-xs">
             <p className="text-black/50">
               Image preview of certificate
             </p>

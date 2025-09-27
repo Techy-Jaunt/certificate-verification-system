@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 
 const CustomDropdown = ({ label, placeholder, options, value, onChange }) => {
@@ -8,6 +8,13 @@ const CustomDropdown = ({ label, placeholder, options, value, onChange }) => {
     onChange(option);
     setIsOpen(false);
   };
+
+   useEffect(() => {
+      document.body.style.overflow = "hidden"; // lock scroll
+      return () => {
+        document.body.style.overflow = "auto"; // restore when modal closes
+      };
+    }, []);
 
   return (
     <div className="form-group mb-5">
@@ -48,9 +55,8 @@ const CustomDropdown = ({ label, placeholder, options, value, onChange }) => {
   );
 };
 
-export const CertificateDownloadForm = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
+export const CertificateDownloadForm = ({  onClose, setOpenOtpModal }) => {
+    const [formData, setFormData] = useState({
     email: '',
     cohort: '',
     track: '',
@@ -58,10 +64,10 @@ export const CertificateDownloadForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Form submitted!');
+    onClose();
+    setOpenOtpModal(true)
 
     setFormData({
-      fullName: '',
       email: '',
       cohort: '',
       track: '',
@@ -69,41 +75,26 @@ export const CertificateDownloadForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-300 p-4">
-      <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
+      <div className="fixed z-40 inset-0 flex items-center justify-center bg-black/50">
+              <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md relative">
+    
         <div className="flex justify-between items-start border-b border-gray-200 pb-5 mb-6">
           <div>
-            <h2 className="text-xl font-bold text-blue-600">Download Certificate</h2>
+            <h2 className="text-xl font-bold text-primary-950">Download Certificate</h2>
             <p className="text-sm text-blue-400 mt-1">Enter your correct details</p>
           </div>
-          <button className="text-gray-400 hover:text-gray-600 transition-colors duration-200" aria-label="Close form">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+        
+            <button
+                        onClick={onClose}
+                        className="text-gray-500 hover:text-gray-700 text-large ml-4"
+                        type="button"
+                    >
+                        ✕
+                    </button>
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="form-group mb-5">
-            <label htmlFor="fullName" className="block text-gray-700 font-semibold mb-2">Full name</label>
-            <input
-              type="text"
-              id="fullName"
-              value={formData.fullName}
-              onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-              placeholder="Kindly input your registered Techyjaunt name"
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 placeholder-gray-400 placeholder-italic text-sm"
-              required
-            />
-
-          </div>
+          
           <div className="form-group mb-5">
             <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">E-mail</label>
             <input
@@ -151,6 +142,7 @@ export const CertificateDownloadForm = () => {
           </button>
         </form>
       </div>
+
     </div>
   );
 };
