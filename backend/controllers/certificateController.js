@@ -369,6 +369,6 @@ const getDetailsHandler = async (req, res) => {
 module.exports = { 
   validateAlumniDetails, 
   verifyAlumniOtpHandler, 
-  getDetailsHandler 
+  getDetailsHandler
 };
 
