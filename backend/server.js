@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://techyjauntalumni.vercel.app",
+    origin: ["http://localhost:3000","https://techyjauntalumni.vercel.app"],
     methods: ["GET", "POST"], 
   })
 );
