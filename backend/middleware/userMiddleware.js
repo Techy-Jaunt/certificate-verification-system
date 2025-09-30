@@ -7,7 +7,7 @@ const errorHandler = (error) => {
 
     return acc;
   }, {});
-}
+};
 
 // OTP Validation Middleware
 const checkOtpMails = (req, res, next) => {
@@ -50,7 +50,7 @@ const trackInputValidation = (req, res, next) => {
   try {
     const { error, value } = trackInput.validate(
       { track: req.query.track },   // 👈 only validate track
-      { abortEarly: false }
+      { abortEarly: false },
     );
 
     if (error) {
