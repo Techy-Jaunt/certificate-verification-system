@@ -45,4 +45,4 @@ const sendEmail = async (emailOptions) => {
         throw new Error('Failed to send email');
     }
 };
-module.exports= {sendEmail}; transporter
+module.exports= {sendEmail}; 
