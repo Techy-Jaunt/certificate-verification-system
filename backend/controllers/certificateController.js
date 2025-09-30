@@ -1,20 +1,4 @@
-"""""""""""",
-  (),
-
-    "",
-  "","""",
-        
-        
-        ,
-      ,,
-        
-        
-        ,
-      
-        
-        
-        ,
-      ,,,const axios = require("axios");
+const axios = require("axios");
 const otpGenerator = require("otp-generator");
 const otpCache = require("../utils/otpCache");
 const { sendEmail } = require("../email/email");
@@ -200,7 +184,7 @@ const responseData = async (url, email, otp, track) => {
   await sendEmail({
     to: email,
     subject: "Your certificate link",
-    html: `<p>Hello,</p><p>Your certificate link is: <strong>${link}</strong>.</p><p>Thank you,<br><strong>TechyJuant</strong></p>`,
+    html: `<p>Hello,</p><p>Your certificate link is: <strong>${link}</strong>.</p><p>Thank you,<br><strong>TechyJaunt</strong></p>`,
   });
   } catch (error) {
     console.error("Response Error", error);
