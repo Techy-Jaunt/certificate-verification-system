@@ -3,7 +3,7 @@ import '../index.css';
 
 export const ErrorPopUp = ({ onClose }) => {
 	const handleTryAgain = () => {
-		window.location.reload(); // 👈 change this to the page you want
+		window.location.reload(); // This will reload the page
 	};
 
 	return (
