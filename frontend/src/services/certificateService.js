@@ -1,38 +1,39 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API_BASE_URL = "https://your-api-endpoint.com/api/certificates";
+const API_BASE_URL =
+	'https://certificate-verification-system-m7s7.onrender.com/api/certificate';
 
-const certificateService = {
-  // Request a certificate (Certificate Request Portal)
-  requestCertificate: (certificateData) => {
-    // certificateData: { fullName, email, cohort, track }
-    return axios.post(`${API_BASE_URL}/request`, certificateData);
-  },
+export const certificateService = {
+	// 🔹 POST request to request certificate (OTP)
+	requestCertificate: async (formData) => {
+		try {
+			const response = await axios.post(`${API_BASE_URL}/request`, formData);
+			return response.data;
+		} catch (error) {
+			throw error.response?.data || { message: 'Request failed' };
+		}
+	},
 
-  // Search certificates (Recruiter Search Results)
-  searchCertificates: (searchParams) => {
-    // searchParams: { name, cohort }
-    return axios.get(`${API_BASE_URL}/search`, { params: searchParams });
-  },
+	// 🔹 POST request to verify OTP
+	verifyOtp: async (formData) => {
+		try {
+			const response = await axios.post(`${API_BASE_URL}/verify-otp`, formData);
+			console.log('📩 Verify OTP Response:', response.data);
+			return response.data;
+		} catch (error) {
+			throw error.response?.data || { message: 'OTP verification failed' };
+		}
+	},
 
-  // Verify a certificate (Recruiters Certificate preview and verification)
-  verifyCertificate: (certificateId) => {
-    return axios.get(`${API_BASE_URL}/verify/${certificateId}`);
-  },
-
-  // Download a certificate (Successful download pop-ups for Recruiter and Alumni)
-  downloadCertificate: (certificateId) => {
-    return axios({
-      method: "GET",
-      url: `${API_BASE_URL}/download/${certificateId}`,
-      responseType: "blob", // Important for downloading files
-    });
-  },
-
-  // Additional helper: View certificate preview (if needed)
-  getCertificatePreview: (certificateId) => {
-    return axios.get(`${API_BASE_URL}/preview/${certificateId}`);
-  },
+	// 🔹 GET request to verify certificate by email & track
+	verifyCertificate: async ({ email, track }) => {
+		try {
+			const response = await axios.get(`${API_BASE_URL}/verify`, {
+				params: { email, track },
+			});
+			return response.data;
+		} catch (error) {
+			throw error.response?.data || { message: 'Verification failed' };
+		}
+	},
 };
-
-export default certificateService;
