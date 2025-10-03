@@ -138,7 +138,7 @@ const Navbar = () => {
           <SuccessDownloadAlumni  closeSuccessModal={() => setOpenSuccessModal(false)} />
         )}
     {openVerifyGraduates && (
-          <VerifyGraduates  closeVerifyGraduates={() => setOpenVerifyGraduate(false)}  setRecruiterSearch={setRecruiterSearch}/>
+          <VerifyGraduates  closeVerifyGraduates={() => setOpenVerifyGraduate(false)} setOpenVerifyGraduate={() => setOpenVerifyGraduate(true)}  setRecruiterSearch={setRecruiterSearch} closeCertificatePreview={() => setCertificatePreview(false)}/>
         )}
     {recruiterSearch && (
           <RecruiterSearchResults  closeRecruiterSearch={() => setRecruiterSearch(false)}  setCertificatePreview={setCertificatePreview}/>
