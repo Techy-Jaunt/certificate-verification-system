@@ -9,7 +9,18 @@ const dotenv = require("dotenv");
 const BASE_URL =
   "https://script.google.com/macros/s/AKfycbzwlTDLO7SOEIcwo3_CY10ra1374P6C7yS_3d_MttHPtvjbV0AboES6_UXv_aCQC5HO/exec";
 
+const FRONTEND_DATA_URL = `${BASE_URL}?track=Frontend`;
+const BACKEND_DATA_URL = `${BASE_URL}?track=Backend`;
+const CYBERSECURITY_DATA_URL = `${BASE_URL}?track=Cybersecurity`;
+const UI_UX_DATA_URL = `${BASE_URL}?track=UI/UX`;
+const PM_DATA_URL = `${BASE_URL}?track=Product Management`;
+const DATA_ANALYSIS_DATA_URL = `${BASE_URL}?track=Data Analysis`;
 
+
+function normalizeCohort(value) {
+  if (!value) return "";
+  return value.toString().trim().toLowerCase().replace("cohort", "").trim();
+}
 
 const validateAlumniDetails = async (req, res) => {
   try {
@@ -60,12 +71,17 @@ const validateAlumniDetails = async (req, res) => {
 
     // Ensure records is always an array
     const dataArray = Array.isArray(data) ? data : [data];
+    
+    console.log("First recpprd sample: ", dataArray[0])
 
-    // Find the Alumni record that matches the provided email, cohort
+    // Normalize input cohort
+    const requestCohort = normalizeCohort(cohort);
+    
+    // Find the Alumni record that matches the provided email + cohort
     const record = dataArray.find(
       (item) =>
         item.Email?.toLowerCase() === email.toLowerCase() &&
-        String(item.Cohorts) === String(cohort)
+        normalizeCohort(item.Cohorts) === requestCohort
     );
 
     // If no matching record is found, return an error response
@@ -88,7 +104,7 @@ const validateAlumniDetails = async (req, res) => {
     otpCache.set(record.Email, { otp, expiry: otpExpiry });
 
     // Send the OTP to the user's email
-    await sendMail({
+    await sendEmail({
       to: record.Email,
       subject: "Your OTP Code",
       text: `Your OTP code is ${otp}. It is valid for 10 minutes.`,
@@ -99,7 +115,11 @@ const validateAlumniDetails = async (req, res) => {
     console.error("Validation Error:", err);
     return res
       .status(500)
-      .json({ status: "error", message: "Internal Server Error" });
+      .json({ 
+        status: "error", 
+        message: err.message || "Internal Server Error",
+        stack: err.stack,
+      });
   }
 };
 
@@ -155,7 +175,8 @@ const responseData = async (url, email, otp, track) => {
     throw new CustomError("Otp expired or invalid", 401, "Fail");
   }
 
-  const link = record[`Link to merged Doc - ${track} cert`];
+  const key = `Link to merged Doc - ${track.toLowerCase()} cert`;
+  const link = record[key];
   console.log("LINK", link);
 
   // Send the OTP to the user's email
@@ -163,7 +184,7 @@ const responseData = async (url, email, otp, track) => {
   await sendEmail({
     to: email,
     subject: "Your certificate link",
-    html: `<p>Hello,</p><p>Your certificate link is: <strong>${link}</strong>.</p><p>Thank you,<br><strong>TechyJuant</strong></p>`,
+    html: `<p>Hello,</p><p>Your certificate link is: <strong>${link}</strong>.</p><p>Thank you,<br><strong>TechyJaunt</strong></p>`,
   });
   } catch (error) {
     console.error("Response Error", error);
@@ -369,6 +390,6 @@ const getDetailsHandler = async (req, res) => {
 module.exports = { 
   validateAlumniDetails, 
   verifyAlumniOtpHandler, 
-  getDetailsHandler 
+  getDetailsHandler
 };
 
