@@ -6,7 +6,7 @@ const RecruiterSearchResults = ({
   alumniData,
   closeVerifyGraduates, // Function to close the main modal
   openCertificatePreview, // Function to advance to the preview step
-  closeResults, // New function to go back to the search form
+  closeResults, // function to go back to the search form
 }) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -15,14 +15,9 @@ const RecruiterSearchResults = ({
     };
   }, []);
 
-  // NOTE: The 'View Certificate' button should pass the specific alumni object
   const handleViewCertificate = (alumni) => {
     openCertificatePreview(alumni); // Calls Navbar's function
   };
-
-  // NOTE: If you want the 'X' button to go back to search, use closeResults.
-  // Since you asked for it to close the component, I'll use closeVerifyGraduates.
-  // If you prefer to go back to the search form, change onClick={closeVerifyGraduates} to onClick={closeResults}
 
   return (
     <div className="fixed z-40 inset-0 flex items-center justify-center bg-black/50">
@@ -47,14 +42,12 @@ const RecruiterSearchResults = ({
           Alumni Certificate
         </h1>
         <div className="bg-(--color-dark-brown) rounded-lg h-fit w-[95%] py-4 mx-auto">
-          
           <div className=" px-5">
             {alumniData.map((alumni, i) => (
               <div
                 key={i}
                 className="bg-[#d9d9d9] mb-2 rounded-lg py-5 px-2 gap-2 md:gap-5 flex flex-col items-center justify-center border-b border-[#d9d9d9] last:border-b-0"
               >
-               
                 <div className="w-full max-w-[25rem] font-bold px-4 flex justify-between self-start">
                   <div className="hidden md:flex gap-24">
                     <span>Name</span>
@@ -81,7 +74,7 @@ const RecruiterSearchResults = ({
 
                     {/* View Certificate Button */}
                     <button
-                      onClick={() => handleViewCertificate(alumni)} // ✅ Pass the specific alumni object
+                      onClick={() => handleViewCertificate(alumni)} // Pass the specific alumni object
                       className="w-full lg:max-w-[10rem] flex items-center justify-center gap-1 px-2 py-2 bg-primary-950 hover:opacity-80 transition-discrete text-white text-xs md:text-sm rounded-lg cursor-pointer"
                     >
                       <RiEyeLine size={20} />
