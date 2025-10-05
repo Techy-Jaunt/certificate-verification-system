@@ -12,7 +12,7 @@ const otpAuth = Joi.object({
       "cybersecurity",
       "product management",
       "ui/ux",
-      "data analysis"
+      "data analysis",
     )
     .required(),
 }).messages({
@@ -24,14 +24,27 @@ const otpAuth = Joi.object({
 
 // Ensures email is a valid email format and name is more than 2 letters
 const queryInput = Joi.object({
-  email: Joi.string().optional(),
+  email: Joi.string().email().optional(),
   name: Joi.string().optional().min(2).max(50),
-}).messages({
-  "string.email": "Please enter a valid email address",
-  "any.required": "{{#label}} is required",
-  "any.only":
-    "Track must be one of frontend, backend, cybersecurity, product management, ui/ux and data analysis.",
-});
+  track: Joi.string()
+    .trim()
+    .valid(
+      "frontend",
+      "backend",
+      "cybersecurity",
+      "product management",
+      "ui/ux",
+      "data analysis",
+    )
+    .required(), // if track is always required
+})
+  .or("email", "name") // at least one of email or name must be provided
+  .messages({
+    "string.email": "Please enter a valid email address",
+    "any.required": "{{#label}} is required",
+    "any.only":
+      "Track must be one of frontend, backend, cybersecurity, product management, ui/ux and data analysis.",
+  });
 
 // Ensures track is valid
 const trackInput = Joi.object({
@@ -43,7 +56,7 @@ const trackInput = Joi.object({
       "cybersecurity",
       "product management",
       "ui/ux",
-      "data analysis"
+      "data analysis",
     )
     .required(),
 }).messages({

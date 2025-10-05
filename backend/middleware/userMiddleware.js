@@ -7,7 +7,7 @@ const errorHandler = (error) => {
 
     return acc;
   }, {});
-}
+};
 
 // OTP Validation Middleware
 const checkOtpMails = (req, res, next) => {
@@ -22,7 +22,7 @@ const checkOtpMails = (req, res, next) => {
     req.validatedOtpData = value;
     next();
   } catch (error) {
-    console.log("Middleware Err", error)
+    // console.log("Middleware Err", error)
     return res.status(500).json({ message: error.message })
   }
 };
@@ -30,7 +30,7 @@ const checkOtpMails = (req, res, next) => {
 // Query Middleware
 const checkQueryInputs = (req, res, next) => {
   try {
-    const { error, value } = queryInput.validate(req.query, {
+    const { error, value } = queryInput.validate(req.query, { // Pass the entire query object
       abortEarly: false,
     });
     if (error) {
@@ -40,17 +40,19 @@ const checkQueryInputs = (req, res, next) => {
     req.queryData = value;
     next();
   } catch (error) {
-    console.log("Query Middleware Err", error)
-    return res.status(500).json({ message: error.message })
+    // console.log("Query Middleware Err", error);
+    return res.status(500).json({ message: error.message });
   }
 };
 
 // Track Validation Middleware
 const trackInputValidation = (req, res, next) => {
   try {
-    const { error, value } = trackInput.validate(req.body, {
-      abortEarly: false,
-    });
+    const { error, value } = trackInput.validate(
+      { track: req.query.track },   // 👈 only validate track
+      { abortEarly: false },
+    );
+
     if (error) {
       const message = errorHandler(error);
       return res.status(400).json(message);
@@ -58,10 +60,9 @@ const trackInputValidation = (req, res, next) => {
     req.validatedTrackData = value;
     next();
   } catch (error) {
-    console.log("Track Middleware Err", error)
-    return res.status(500).json({ message: error.message })
+    // console.log("Track Middleware Err", error);
+    return res.status(500).json({ message: error.message });
   }
 };
-
 
 module.exports = {checkOtpMails, checkQueryInputs, trackInputValidation}

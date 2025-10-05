@@ -6,6 +6,7 @@ import Otp from "../modals/Otp";
 import SuccessDownloadAlumni from "../modals/SuccessDownloadAlumni";
 import VerifyGraduates from "../modals/VerifyGraduates";
 
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [downloadCertificate, setDownloadCertificate] = useState(false);
@@ -230,6 +231,7 @@ const Navbar = () => {
       )}
     </>
   );
+
 };
 
 export default Navbar;

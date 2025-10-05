@@ -7,6 +7,7 @@ const RecruiterSearchResults = ({
   closeVerifyGraduates, // Function to close the main modal
   openCertificatePreview, // Function to advance to the preview step
   closeResults, // function to go back to the search form
+
 }) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";

@@ -14,7 +14,8 @@ No initial authentication required. Uses OTP (One-Time Password) verification fo
 
 ### 1. Validate Alumni Details
 
-**Endpoint:** `POST /api/validate-alumni`
+**Endpoint:** `POST /api/certificate/request`
+
 
 Validates alumni information and sends an OTP to their registered email.
 
@@ -105,7 +106,7 @@ const AlumniValidation = () => {
 
 ### 2. Verify OTP and Get Certificate
 
-**Endpoint:** `POST /api/verify-otp`
+**Endpoint:** `POST /certificate/api/verify-otp`
 
 Verifies the OTP and sends certificate link to the alumni's email.
 
@@ -185,7 +186,7 @@ const OTPVerification = () => {
 
 ### 3. Get Alumni Details
 
-**Endpoint:** `GET /api/get-details`
+**Endpoint:** `GET /api/certificate/get-details`
 
 Retrieves alumni details by email or name.
 
