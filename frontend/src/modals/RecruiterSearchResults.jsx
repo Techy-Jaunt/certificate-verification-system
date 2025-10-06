@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { RiEyeLine } from "react-icons/ri";
 import { LuChevronLeft } from "react-icons/lu";
+import tjCert from "/images/TJCert.png";
 
 const RecruiterSearchResults = ({
   alumniData,
@@ -19,6 +20,7 @@ const RecruiterSearchResults = ({
   const handleViewCertificate = (alumni) => {
     openCertificatePreview(alumni); // Calls Navbar's function
   };
+  const alumniName = alumniData?.name || "Alumni";
 
   return (
     <div className="fixed z-40 inset-0 flex items-center justify-center bg-black/50">
@@ -69,8 +71,12 @@ const RecruiterSearchResults = ({
                   </div>
                   <div className="w-full order-1 md:order-3 flex flex-col md:flex-row gap-4 items-center md:px-[10]">
                     {/* Certificate Preview Placeholder */}
-                    <div className="w-full md:w-[180px] h-[75px] md:h-[100px] bg-[#d9d9d9] rounded-md flex items-center justify-center border border-gray-300">
-                      <span className="text-gray-400 text-sm"></span>
+                    <div className="w-full md:w-[180px] h-[75px] md:h-[100px] bg-[#d9d9d9] rounded-md flex items-center justify-center border border-gray-300 relative">
+                      {/* <span className="text-gray-400 text-sm"></span> */}
+                      <p className="text-black/50 absolute text-xs sm:text-base right-[14%] sm:right-[18%] md:right-[20%] lg:right-[25%] z-50">
+                            {alumniName}
+                        </p>
+                        <img src={tjCert} alt="TechJaunt Cert Preview" className="h-full w-full absolute inset-0"/>
                     </div>
 
                     {/* View Certificate Button */}

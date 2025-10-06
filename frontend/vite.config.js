@@ -17,7 +17,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://certificate-verification-system-m7s7.onrender.com",
+        // target: "https://certificate-verification-system-m7s7.onrender.com",
+        target: "http://techyjaunt-react.onrender.com",
         changeOrigin: true,
         secure: false,
       },

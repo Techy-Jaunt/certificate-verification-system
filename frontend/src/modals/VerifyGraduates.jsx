@@ -70,7 +70,7 @@ const VerifyGraduates = ({
                   value={searchParams.track}
                   onChange={handleTrackInputChange}
                   placeholder="Enter track"
-                  className="w-full text-sm md:text-base h-10 pl-8 border rounded-md"
+                  className="w-full text-sm md:text-base h-10 pl-2 md:pl-8 border rounded-md"
                 />
               </div>
               <div className="w-full relative">
@@ -79,7 +79,7 @@ const VerifyGraduates = ({
                   value={searchParams.otherInput}
                   onChange={handleOtherInputChange}
                   placeholder="Enter full name or email address..."
-                  className="w-full text-sm md:text-base h-10 pl-8 border rounded-md"
+                  className="w-full text-sm md:text-base h-10 pl-2 md:pl-8 border rounded-md"
                 />
               </div>
               <button
