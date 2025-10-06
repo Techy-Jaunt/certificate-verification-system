@@ -1,4 +1,4 @@
-# Alumni Certificate System API Documentation (Simplified)
+# Alumni Certificate System API Documentation 
 
 ## Overview
 
@@ -139,7 +139,7 @@ await axios.get(`${BASE_URL}/api/certificate/verify`, { params });
 
 ---
 
-## 🧩 Example Flow Summary
+##  Example Flow Summary
 
 1. **Step 1:** User enters email, cohort, and track → `POST /api/certificate/request` (OTP sent)
 2. **Step 2:** User enters OTP → `POST /api/certificate/verify-otp` (Certificate sent)
@@ -147,7 +147,7 @@ await axios.get(`${BASE_URL}/api/certificate/verify`, { params });
 
 ---
 
-## ✅ Quick Error Reference
+##  Quick Error Reference
 
 | Status Code | Meaning      | Example Cause                |
 | ----------- | ------------ | ---------------------------- |
