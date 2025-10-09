@@ -84,7 +84,8 @@ const validateAlumniDetails = async (req, res) => {
   }
 };
 
-const responseData = async (res, url, email, otp, track) => {
+const responseData = async (url, email, otp, track) => {
+  // Removed the 'res' argument
   try {
     const { data } = await axios.get(url);
     const dataArray = Array.isArray(data) ? data : [data];
@@ -94,6 +95,7 @@ const responseData = async (res, url, email, otp, track) => {
 
     const cachedOtp = otpCache.get(email.toLowerCase());
     if (!cachedOtp || cachedOtp.otp !== otp || Date.now() > cachedOtp.expiry) {
+      // Throw the error instead of sending a response
       throw new CustomError("OTP expired or invalid", 401, "fail");
     }
 
@@ -107,13 +109,16 @@ const responseData = async (res, url, email, otp, track) => {
       html: `<p>Hello,</p><p>Your certificate link is: <strong>${link}</strong>.</p><p>Thank you,<br><strong>TechyJaunt</strong></p>`,
     });
   } catch (err) {
-    console.error("Response Error:", err);
-    return res.status(err.statusCode || 500).json({
-      status: err.status || "error",
-      message: err.message || "Internal Server Error",
-    });
+    // If it's a CustomError, just re-throw it to be caught by the handler
+    if (err instanceof CustomError) {
+        throw err;
+    }
+    // For unexpected errors (e.g., from axios or sendEmail), wrap and re-throw
+    console.error("Response Data Internal Error:", err);
+    throw new CustomError("Failed to process certificate request.", 500, "error");
   }
 };
+
 
 const queryData = async (res, url, query, track, type) => {
   try {
@@ -149,13 +154,16 @@ const verifyAlumniOtpHandler = async (req, res) => {
 
     if (!apiUrl) throw new CustomError("Track does not exist", 404, "fail");
 
-    await responseData(res, apiUrl, email, otp, track);
+    // Corrected call: Pass only logic-required arguments, not 'res'
+    await responseData(apiUrl, email, otp, track);
 
+    // This is the ONLY success response, sent after the promise resolves
     return res.status(200).json({
       status: "success",
       message: `Certificate link sent to ${email}`,
     });
   } catch (err) {
+    // This catch block handles ALL errors thrown from above, including responseData
     console.error("Handler Error:", err);
     return res.status(err.statusCode || 500).json({
       status: err.status || "error",
@@ -163,6 +171,7 @@ const verifyAlumniOtpHandler = async (req, res) => {
     });
   }
 };
+
 
 // Get user details
 const getDetailsHandler = async (req, res) => {
