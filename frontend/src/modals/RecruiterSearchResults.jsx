@@ -71,9 +71,9 @@ const RecruiterSearchResults = ({
                   <div className="w-full order-1 md:order-3 flex flex-col md:flex-row gap-4  items-center md:px-[10]">
                     {/* Certificate Preview Placeholder */}
                     <div className="w-full md:w-[180px] h-[75px] md:h-[100px] bg-[#d9d9d9] rounded-md flex items-center justify-center border border-gray-300 relative">
-                      <p className="text-black/50 absolute text-xs sm:text-base right-[14%] sm:right-[18%] md:right-[20%] lg:right-[25%] z-50">
-                        {/* {alumni.name} */}
-                        Alumni
+                      <p className="text-black/50 absolute text-xs sm:text-base md:text-[.5rem] right-[14%] sm:right-[18%] md:right-[10%] lg:right-[18%] z-50">
+                        {alumni.name}
+                  
                       </p>
                       <img
                         src={tjCert}

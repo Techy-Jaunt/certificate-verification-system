@@ -49,7 +49,7 @@ const VerifyGraduates = ({
     <>
       {step === "search" && (
         <div className="fixed z-40 inset-0 flex items-center justify-center bg-black/50">
-          <div className="bg-[var(--color-light)] w-full max-w-[90%] text-[1rem] sm:text-[1.25rem] px-6 sm:px-8 pt-10 py-6 flex flex-col gap-4 relative rounded-md">
+          <div className="bg-[var(--color-light)] w-[90%] max-w-[43.5rem] text-[1rem] sm:text-[1.25rem] px-6 sm:px-8 pt-10 py-6 flex flex-col gap-4 relative rounded-md">
             <button
               className="p-1 absolute top-4 right-4 cursor-pointer"
               onClick={closeVerifyGraduates} // Closes the main modal
@@ -70,7 +70,7 @@ const VerifyGraduates = ({
                   value={searchParams.track}
                   onChange={handleTrackInputChange}
                   placeholder="Enter track"
-                  className="w-full text-sm md:text-base h-10 pl-2 md:pl-8 border rounded-md"
+                  className="w-full text-sm md:text-base h-10 pl-2 border rounded-md"
                 />
               </div>
               <div className="w-full relative">
@@ -79,7 +79,7 @@ const VerifyGraduates = ({
                   value={searchParams.otherInput}
                   onChange={handleOtherInputChange}
                   placeholder="Enter full name or email address..."
-                  className="w-full text-sm md:text-base h-10 pl-2 md:pl-8 border rounded-md"
+                  className="w-full text-sm md:text-base h-10 pl-2 border rounded-md"
                 />
               </div>
               <button
