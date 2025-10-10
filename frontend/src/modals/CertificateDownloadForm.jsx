@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
-import { certificateService } from '../services/certificateService';
+import { fetchCertificateData } from '../services/certificateService';
 import { ErrorPopUp } from './ErrorPopup';
+import axios from 'axios';
 
 const CustomDropdown = ({ label, placeholder, options, value, onChange }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -77,28 +78,26 @@ export const CertificateDownloadForm = ({ onClose, setOpenOtpModal }) => {
 		setLoading(true);
 
 		try {
-			const res = await certificateService.requestCertificate(formData);
+			// Save details locally for OTP verification step
+			localStorage.setItem('certificateData', JSON.stringify(formData));
 
-			if (
-				res.success === false ||
-				res.error === 'Alumni not found' ||
-				res.message?.includes('Failed to send email')
-			) {
-				// open error modal instead of inline error message
-				setMessage(res.message || 'Alumni details could not be found.');
-				setErrorModalOpen(true);
-				setLoading(false);
+			const response = await axios.post(
+				'https://techyjaunt-react.onrender.com/api/certificate/request',
+				{
+					email: formData.email,
+					cohort: formData.cohort,
+					track: formData.track,
+				}
+			);
 
-				return;
-			} else {
-				// success flow
-				setMessage(res.message || 'OTP sent to your email!');
-				setOpenOtpModal(true);
-				setLoading(false);
-			}
-		} catch (err) {
-			setMessage(err.message || 'Something went wrong');
+			const data = response.data;
+
+			setMessage(response.data || 'OTP sent to your email!');
+			setOpenOtpModal(true);
 			setLoading(false);
+		} catch (error) {
+			// console.error('Error:', error.response?.data || error.message);
+			setMessage(error.response?.data?.message || 'Something went wrong.');
 			setErrorModalOpen(true);
 		} finally {
 			setLoading(false);
@@ -193,7 +192,10 @@ export const CertificateDownloadForm = ({ onClose, setOpenOtpModal }) => {
 
 					<button
 						type="submit"
-						className="bg-blue-600 text-white font-bold py-2 px-5 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-300 mt-6 flex items-center justify-center space-x-2 mx-auto"
+						className={`bg-blue-600 text-white font-bold py-2 px-5 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-300 mt-6 flex items-center justify-center space-x-2 mx-auto  ${
+							loading ? 'opacity-50 cursor-not-allowed' : ''
+						}`}
+						disabled={loading}
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +211,7 @@ export const CertificateDownloadForm = ({ onClose, setOpenOtpModal }) => {
 								d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
 							/>
 						</svg>
-						<span>{loading ? 'Submitting...' : 'Submit'}</span>
+						<span>{loading ? 'Fetching Certificate...' : 'Submit'}</span>
 					</button>
 				</form>
 			</div>
