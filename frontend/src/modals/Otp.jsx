@@ -9,6 +9,7 @@ const Otp = ({ closeOtp, setOpenSuccessModal }) => {
 	const [isSuccess, setIsSuccess] = useState(true);
 	const [loading, setLoading] = useState(false);
 	const [otp, setOtp] = useState('');
+	const [error, setError] = useState('');
 	const [errorModalOpen, setErrorModalOpen] = useState(false);
 
 	const handleVerify = async (e) => {
@@ -19,11 +20,13 @@ const Otp = ({ closeOtp, setOpenSuccessModal }) => {
 		// ✅ Retrieve saved data
 		const storedData = JSON.parse(localStorage.getItem('certificateData'));
 		if (!storedData) {
-			alert('Certificate details missing. Please start again.');
+			setError('Certificate details missing. Please start again.');
+			setLoading(false);
 			return;
 		}
 
 		if (!otp) {
+			setError('Enter Valid OTP');
 			setLoading(false);
 			return;
 		}
@@ -38,13 +41,13 @@ const Otp = ({ closeOtp, setOpenSuccessModal }) => {
 			);
 			console.log('✅ OTP verified:', response.data);
 			setOtpOk(true);
-			// closeOtp();
-			setOpenSuccessModal(true);
 			setIsSuccess(true);
+			setOpenSuccessModal(true);
+			closeOtp();
 
 			localStorage.removeItem('certificateData');
 		} catch (error) {
-			setErrorModalOpen(true);
+			setError(error.message || 'OTP Verification Failed');
 			setIsSuccess(false);
 			console.log(error);
 			console.error(
@@ -77,6 +80,7 @@ const Otp = ({ closeOtp, setOpenSuccessModal }) => {
 						<FaTimes size={12} />
 					</button>
 
+					{error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
 					<h3 className="font-semibold">OTP Verification</h3>
 					<p className="text-[var(--color-darker)] text-sm">
 						Enter the 6-digit pin sent to your email
