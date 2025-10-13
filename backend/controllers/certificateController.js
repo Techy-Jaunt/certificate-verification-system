@@ -85,21 +85,29 @@ const validateAlumniDetails = async (req, res) => {
 };
 
 const responseData = async (url, email, otp, track) => {
-  // Removed the 'res' argument
   try {
     const { data } = await axios.get(url);
     const dataArray = Array.isArray(data) ? data : [data];
+    
+    console.log("🔍 Full data received:", dataArray);
+    console.log("🔍 First record keys:", Object.keys(dataArray[0] || {}));
+    console.log("🔍 Looking for email:", email.toLowerCase());
 
     const record = dataArray.find((item) => item.Email?.toLowerCase() === email.toLowerCase());
     if (!record) throw new CustomError("Email not found", 404, "fail");
 
+    console.log("🔍 Found record:", record);
+    console.log("🔍 All record keys:", Object.keys(record));
+
     const cachedOtp = otpCache.get(email.toLowerCase());
     if (!cachedOtp || cachedOtp.otp !== otp || Date.now() > cachedOtp.expiry) {
-      // Throw the error instead of sending a response
       throw new CustomError("OTP expired or invalid", 401, "fail");
     }
 
     const key = `Link to merged Doc - ${track.toLowerCase()} cert`;
+    console.log("🔍 Looking for key:", key);
+    console.log("🔍 Available keys:", Object.keys(record));
+    
     const link = record[key];
     if (!link) throw new CustomError("Certificate link not found", 404, "fail");
 
@@ -109,11 +117,9 @@ const responseData = async (url, email, otp, track) => {
       html: `<p>Hello,</p><p>Your certificate link is: <strong>${link}</strong>.</p><p>Thank you,<br><strong>TechyJaunt</strong></p>`,
     });
   } catch (err) {
-    // If it's a CustomError, just re-throw it to be caught by the handler
     if (err instanceof CustomError) {
         throw err;
     }
-    // For unexpected errors (e.g., from axios or sendEmail), wrap and re-throw
     console.error("Response Data Internal Error:", err);
     throw new CustomError("Failed to process certificate request.", 500, "error");
   }
@@ -150,8 +156,9 @@ const queryData = async (res, url, query, track, type) => {
 const verifyAlumniOtpHandler = async (req, res) => {
   try {
     let { email, otp, track } = req.validatedOtpData;
+    console.log("🔍 Verifying OTP for:", { email, track, otp });
+    
     const apiUrl = TRACK_URLS[track.toLowerCase()];
-
     if (!apiUrl) throw new CustomError("Track does not exist", 404, "fail");
 
     // Corrected call: Pass only logic-required arguments, not 'res'
