@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { ErrorPopUp } from './ErrorPopup';
 
-const Otp = ({ closeOtp, setOpenSuccessModal }) => {
+const Otp = ({ closeOtp, setOpenSuccessModal, setSuccessModalEmail }) => {
 	// Just Testing the different states with the two expressions immediately below
 	const [otpOk, setOtpOk] = useState(false);
 	const [isSuccess, setIsSuccess] = useState(true);
@@ -42,6 +42,7 @@ const Otp = ({ closeOtp, setOpenSuccessModal }) => {
 			console.log('✅ OTP verified:', response.data);
 			setOtpOk(true);
 			setIsSuccess(true);
+			setSuccessModalEmail(email); // Pass the email to the success modal
 			setOpenSuccessModal(true);
 			closeOtp();
 

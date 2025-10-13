@@ -11,6 +11,7 @@ const Navbar = () => {
 	const [downloadCertificate, setDownloadCertificate] = useState(false);
 	const [openOtpModal, setOpenOtpModal] = useState(false);
 	const [openSuccessModal, setOpenSuccessModal] = useState(false);
+	const [successModalEmail, setSuccessModalEmail] = useState('');
 	const [openVerifyGraduates, setOpenVerifyGraduate] = useState(false);
 	const [errorModalOpen, setErrorModalOpen] = useState(false);
 
@@ -207,11 +208,13 @@ const Navbar = () => {
 				<Otp
 					closeOtp={() => setOpenOtpModal(false)}
 					setOpenSuccessModal={setOpenSuccessModal}
+					setSuccessModalEmail={setSuccessModalEmail}
 				/>
 			)}
 			{openSuccessModal && (
 				<SuccessDownloadAlumni
 					closeSuccessModal={() => setOpenSuccessModal(false)}
+					email={successModalEmail}
 				/>
 			)}
 
