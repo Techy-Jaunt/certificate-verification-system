@@ -232,12 +232,6 @@ const Navbar = () => {
 					closeVerifyGraduates={closeVerifyGraduatesAndReset}
 				/>
 			)}
-			{errorModalOpen && (
-				<ErrorPopUp
-					message={message}
-					onClose={() => setErrorModalOpen(false)}
-				/>
-			)}
 		</>
 	);
 };
