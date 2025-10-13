@@ -33,7 +33,7 @@ const Otp = ({ closeOtp, setOpenSuccessModal }) => {
 
 		try {
 			const response = await axios.post(
-				'https://certificate-verification-system-m7s7.onrender.com/api/certificate/verify-otp',
+				'https://techyjaunt-react.onrender.com/api/certificate/verify-otp',
 				payload
 			);
 			console.log('✅ OTP verified:', response.data);
