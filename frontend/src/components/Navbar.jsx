@@ -13,7 +13,11 @@ const Navbar = () => {
 	const [openSuccessModal, setOpenSuccessModal] = useState(false);
 	const [successModalEmail, setSuccessModalEmail] = useState('');
 	const [openVerifyGraduates, setOpenVerifyGraduate] = useState(false);
+<<<<<<< HEAD
 	const [errorModalOpen, setErrorModalOpen] = useState(false);
+=======
+	// const [errorModalOpen, setErrorModalOpen] = useState(false);
+>>>>>>> 5b2e8775db47ccbe607210626356d2eaf4fdd26a
 
 	// Getting the fetched data for the whole recruiter verification process
 	const [step, setStep] = useState('search');
@@ -36,10 +40,20 @@ const Navbar = () => {
 				params.name = searchParams.otherInput;
 			}
 
+<<<<<<< HEAD
 			const response = await axios.get('/api/certificate/verify', { params });
 			const results = Array.isArray(response.data)
 				? response.data
 				: [response.data];
+=======
+      const BASE_URL = "https://techyjaunt-react.onrender.com";
+
+      // const response = await axios.get("/api/certificate/verify", { params });
+      const response = await axios.get(`${BASE_URL}/api/certificate/verify`, { params });
+      const results = Array.isArray(response.data)
+        ? response.data
+        : [response.data];
+>>>>>>> 5b2e8775db47ccbe607210626356d2eaf4fdd26a
 
 			// setAlumniData(results);
 			if (!results) {
@@ -47,6 +61,10 @@ const Navbar = () => {
 			}
 			setError(false);
 			setStep('results');
+<<<<<<< HEAD
+=======
+			setAlumniData(results);
+>>>>>>> 5b2e8775db47ccbe607210626356d2eaf4fdd26a
 			console.log('Search results:', results[0]);
 		} catch (error) {
 			console.error('Search failed:', error);
@@ -240,3 +258,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
