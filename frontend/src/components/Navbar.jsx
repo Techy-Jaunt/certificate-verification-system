@@ -50,6 +50,7 @@ const Navbar = () => {
 			}
 			setError(false);
 			setStep('results');
+			setAlumniData(results);
 			console.log('Search results:', results[0]);
 		} catch (error) {
 			console.error('Search failed:', error);
@@ -243,4 +244,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
