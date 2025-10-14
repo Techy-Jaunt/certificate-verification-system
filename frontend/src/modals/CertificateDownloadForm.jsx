@@ -45,7 +45,7 @@ const CustomDropdown = ({ label, placeholder, options, value, onChange }) => {
 					/>
 				</div>
 				{isOpen && (
-					<ul className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg overflow-hidden">
+					<ul className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg overflow-hidden max-h-48 overflow-y-auto">
 						{options.map((option, index) => (
 							<li
 								key={index}
