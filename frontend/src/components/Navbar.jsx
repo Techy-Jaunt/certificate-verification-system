@@ -36,7 +36,7 @@ const Navbar = () => {
 				params.name = searchParams.otherInput;
 			}
 
-      const BASE_URL = "http://techyjaunt-react.onrender.com";
+      const BASE_URL = "https://techyjaunt-react.onrender.com";
 
       // const response = await axios.get("/api/certificate/verify", { params });
       const response = await axios.get(`${BASE_URL}/api/certificate/verify`, { params });
@@ -243,3 +243,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
