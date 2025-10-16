@@ -178,7 +178,7 @@ export const CertificateDownloadForm = ({ onClose, setOpenOtpModal }) => {
 						label="Track"
 						placeholder="Kindly input your track"
 						options={[
-							{ label: 'UI/UX', value: 'uiux' },
+							{ label: 'UI/UX', value: 'ui/ux' },
 							{ label: 'Cybersecurity', value: 'cybersecurity' },
 							{ label: 'Blockchain', value: 'blockchain' },
 							{ label: 'Frontend Development', value: 'frontend' },
