@@ -13,7 +13,7 @@ const Navbar = () => {
 	const [openSuccessModal, setOpenSuccessModal] = useState(false);
 	const [successModalEmail, setSuccessModalEmail] = useState('');
 	const [openVerifyGraduates, setOpenVerifyGraduate] = useState(false);
-	// const [errorModalOpen, setErrorModalOpen] = useState(false);
+	const [errorModalOpen, setErrorModalOpen] = useState(false);
 
 	// Getting the fetched data for the whole recruiter verification process
 	const [step, setStep] = useState('search');
@@ -36,7 +36,7 @@ const Navbar = () => {
 				params.name = searchParams.otherInput;
 			}
 
-      const BASE_URL = "http://techyjaunt-react.onrender.com";
+      const BASE_URL = "https://techyjaunt-react.onrender.com";
 
       // const response = await axios.get("/api/certificate/verify", { params });
       const response = await axios.get(`${BASE_URL}/api/certificate/verify`, { params });
@@ -44,12 +44,12 @@ const Navbar = () => {
         ? response.data
         : [response.data];
 
-			// setAlumniData(results);
 			if (!results) {
 				setErrorModalOpen(true);
 			}
 			setError(false);
 			setStep('results');
+			setAlumniData(results);
 			console.log('Search results:', results[0]);
 		} catch (error) {
 			console.error('Search failed:', error);
@@ -243,3 +243,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
