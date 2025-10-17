@@ -233,6 +233,7 @@ const Navbar = () => {
 					step={step}
 					setStep={setStep}
 					error={error}
+					errorModalOpen={errorModalOpen}
 					loading={loading}
 					selectedAlumni={selectedAlumni} // Pass down selectedAlumni
 					openCertificatePreview={openCertificatePreview} // Passed down to RecruiterSearchResults

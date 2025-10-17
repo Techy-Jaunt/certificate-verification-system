@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { FaTimes, FaSearch } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
+import { FaTimes, FaSearch, FaAngleDown } from "react-icons/fa";
 import RecruiterSearchResults from "./RecruiterSearchResults";
 import RecruiterCertificatePreview from "./RecruiterCertificatePreview";
 
@@ -17,14 +17,15 @@ const VerifyGraduates = ({
   closeVerifyGraduates, // Function to close the main modal (sets openVerifyGraduates=false in Navbar)
 }) => {
   const [isValid, setIsValid] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState("Select Track");
 
   const trackRegex = /^[A-Za-z]{3,}(?: [A-Za-z]{3,})?$/;
   const OtherInputRegex =
     /^([a-zA-Z\s'-]{3,}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
 
-  const handleTrackInputChange = (e) => {
-    const value = e.target.value;
-    setSearchParams({ ...searchParams, track: value });
+  const handleTrackInputChange = (value) => {
+    setSearchParams({ ...searchParams, track: value.toLowerCase() });
     setIsValid(
       trackRegex.test(value) && OtherInputRegex.test(searchParams.otherInput)
     );
@@ -37,6 +38,20 @@ const VerifyGraduates = ({
       trackRegex.test(searchParams.track) && OtherInputRegex.test(value)
     );
   };
+
+  const selectRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (selectRef.current && !selectRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -65,20 +80,53 @@ const VerifyGraduates = ({
             </p>
             <div className="input-box w-full flex flex-col md:flex-row gap-2">
               <div className="w-full relative">
-                <input
-                  type="text"
-                  value={searchParams.track}
-                  onChange={handleTrackInputChange}
-                  placeholder="Enter track"
-                  className="w-full text-sm md:text-base h-10 pl-2 border rounded-md"
-                />
+                <div ref={selectRef} className="relative w-full">
+                  <div
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="border rounded-md p-2 flex justify-between items-center cursor-pointer"
+                  >
+                    <span className="text-sm">
+                      {selected || "Select Track"}
+                    </span>
+                    <FaAngleDown
+                      className={`transition-transform ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </div>
+
+                  {isOpen && (
+                    <ul className="absolute -mt-10 w-full bg-white flex flex-col border rounded-md shadow-lg z-10 overflow-y-scoll">
+                      {[
+                        "Frontend",
+                        "Backend",
+                        "Cybersecurity",
+                        "Product Management",
+                        "UI/UX",
+                        "Data Analysis",
+                      ].map((track) => (
+                        <li
+                          key={track}
+                          onClick={() => {
+                            setSelected(track);
+                            handleTrackInputChange(track);
+                            setIsOpen(false);
+                          }}
+                          className="text-sm px-2 py-1 hover:bg-gray-100 cursor-pointer"
+                        >
+                          {track}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
               <div className="w-full relative">
                 <input
                   type="text"
                   value={searchParams.otherInput}
                   onChange={handleOtherInputChange}
-                  placeholder="Enter full name or email address..."
+                  placeholder="Enter email address"
                   className="w-full text-sm md:text-base h-10 pl-2 border rounded-md"
                 />
               </div>
