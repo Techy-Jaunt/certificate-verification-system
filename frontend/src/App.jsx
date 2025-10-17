@@ -1,13 +1,13 @@
-import React from "react";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
 
-const App = () => {
+
+function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        certificate-verification-system
-      </h1>
-    </div>
+    <>
+      <Navbar />
+      <Home/>
+    </>
   );
-};
-
+}
 export default App;
