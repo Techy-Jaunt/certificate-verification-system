@@ -13,7 +13,7 @@ const Navbar = () => {
 	const [openSuccessModal, setOpenSuccessModal] = useState(false);
 	const [successModalEmail, setSuccessModalEmail] = useState('');
 	const [openVerifyGraduates, setOpenVerifyGraduate] = useState(false);
-	// const [errorModalOpen, setErrorModalOpen] = useState(false);
+	const [errorModalOpen, setErrorModalOpen] = useState(false);
 
 	// Getting the fetched data for the whole recruiter verification process
 	const [step, setStep] = useState('search');
@@ -46,7 +46,6 @@ const Navbar = () => {
 				? response.data
 				: [response.data];
 
-			// setAlumniData(results);
 			if (!results) {
 				setErrorModalOpen(true);
 			}
@@ -234,6 +233,7 @@ const Navbar = () => {
 					step={step}
 					setStep={setStep}
 					error={error}
+					errorModalOpen={errorModalOpen}
 					loading={loading}
 					selectedAlumni={selectedAlumni} // Pass down selectedAlumni
 					openCertificatePreview={openCertificatePreview} // Passed down to RecruiterSearchResults
