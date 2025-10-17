@@ -184,7 +184,7 @@ export const CertificateDownloadForm = ({ onClose, setOpenOtpModal }) => {
 							{ label: 'Frontend Development', value: 'frontend' },
 							{ label: 'Backend Development', value: 'backend' },
 							{ label: 'Data Analysis', value: 'data analysis' },
-							{ label: 'Project Management', value: 'project management' },
+							{ label: 'Product Management', value: 'product management' },
 						]}
 						value={formData.track}
 						onChange={(val) => setFormData({ ...formData, track: val })}

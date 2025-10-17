@@ -15,8 +15,8 @@ const TRACK_URLS = {
   backend: `${BASE_URL}?track=Backend`,
   cybersecurity: `${BASE_URL}?track=Cybersecurity`,
   "ui/ux": `${BASE_URL}?track=UI/UX`,
-  "product management": `${BASE_URL}?track=Product Management`,
-  "data analysis": `${BASE_URL}?track=Data Analysis`,
+  "product management": `${BASE_URL}?track=ProductManagement`,
+  "data analysis": `${BASE_URL}?track=DataAnalysis`,
 };
 
 function normalizeCohort(value) {
