@@ -16,7 +16,7 @@ const TRACK_URLS = {
   cybersecurity: `${BASE_URL}?track=Cybersecurity`,
   "ui/ux": `${BASE_URL}?track=UI/UX`,
   "product management": `${BASE_URL}?track=ProductManagement`,
-  "data analysis": `${BASE_URL}?track=DataAnalysis`,
+  "data analysis": `${BASE_URL}?track=dataanalysis`,
 };
 
 function normalizeCohort(value) {
@@ -40,21 +40,31 @@ const validateAlumniDetails = async (req, res) => {
     const { email, cohort, track } = req.body;
 
     if (!email || !cohort || !track) {
-      return res.status(400).json({ status: "error", message: "Email, cohort, and track are required" });
+      return res
+        .status(400)
+        .json({
+          status: "error",
+          message: "Email, cohort, and track are required",
+        });
     }
 
     // Check type of track
     if (typeof track !== "string") {
-      return res.status(400).json({ status: "error", message: "Track must be a string" });
+      return res
+        .status(400)
+        .json({ status: "error", message: "Track must be a string" });
     }
 
     const apiUrl = TRACK_URLS[track.toLowerCase()];
-    if (!apiUrl) return res.status(400).json({ status: "error", message: "Invalid track provided" });
+    if (!apiUrl)
+      return res
+        .status(400)
+        .json({ status: "error", message: "Invalid track provided" });
 
     const { data } = await axios.get(apiUrl);
     const dataArray = Array.isArray(data) ? data : [data];
-    
-    console.log("First recpprd sample: ", dataArray[0])
+
+    console.log("First recpprd sample: ", dataArray[0]);
 
     const record = dataArray.find(
       (item) =>
@@ -64,7 +74,11 @@ const validateAlumniDetails = async (req, res) => {
 
     if (!record) throw new CustomError("Alumni Record not found", 404, "fail");
 
-    const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false, lowerCaseAlphabets: false });
+    const otp = otpGenerator.generate(6, {
+      upperCase: false,
+      specialChars: false,
+      lowerCaseAlphabets: false,
+    });
     otpCache.set(record.Email, { otp, expiry: Date.now() + 10 * 60 * 1000 });
 
     // Send the OTP to the user's email
@@ -88,12 +102,14 @@ const responseData = async (url, email, otp, track) => {
   try {
     const { data } = await axios.get(url);
     const dataArray = Array.isArray(data) ? data : [data];
-    
+
     console.log("🔍 Full data received:", dataArray);
     console.log("🔍 First record keys:", Object.keys(dataArray[0] || {}));
     console.log("🔍 Looking for email:", email.toLowerCase());
 
-    const record = dataArray.find((item) => item.Email?.toLowerCase() === email.toLowerCase());
+    const record = dataArray.find(
+      (item) => item.Email?.toLowerCase() === email.toLowerCase()
+    );
     if (!record) throw new CustomError("Email not found", 404, "fail");
 
     console.log("🔍 Found record:", record);
@@ -104,27 +120,47 @@ const responseData = async (url, email, otp, track) => {
       throw new CustomError("OTP expired or invalid", 401, "fail");
     }
 
-    const key = `Link to merged Doc - ${track.toLowerCase()} cert`;
-    console.log("🔍 Looking for key:", key);
-    console.log("🔍 Available keys:", Object.keys(record));
-    
-    const link = record[key];
-    if (!link) throw new CustomError("Certificate link not found", 404, "fail");
+    if (track === "data analysis") {
+      const key = `Link to merged Doc - ${track.toLowerCase()}`;
+      console.log("🔍 Looking for key:", key);
+      console.log("🔍 Available keys:", Object.keys(record));
 
-    await sendEmail({
-      to: email,
-      subject: "Your certificate link",
-      html: `<p>Hello,</p><p>Your certificate link is: <strong>${link}</strong>.</p><p>Thank you,<br><strong>TechyJaunt</strong></p>`,
-    });
+      const link = record[key];
+      if (!link)
+        throw new CustomError("Certificate link not found", 404, "fail");
+
+      await sendEmail({
+        to: email,
+        subject: "Your certificate link",
+        html: `<p>Hello,</p><p>Your certificate link is: <strong>${link}</strong>.</p><p>Thank you,<br><strong>TechyJaunt</strong></p>`,
+      });
+    } else {
+      const key = `Link to merged Doc - ${track.toLowerCase()} cert`;
+      console.log("🔍 Looking for key:", key);
+      console.log("🔍 Available keys:", Object.keys(record));
+
+      const link = record[key];
+      if (!link)
+        throw new CustomError("Certificate link not found", 404, "fail");
+
+      await sendEmail({
+        to: email,
+        subject: "Your certificate link",
+        html: `<p>Hello,</p><p>Your certificate link is: <strong>${link}</strong>.</p><p>Thank you,<br><strong>TechyJaunt</strong></p>`,
+      });
+    }
   } catch (err) {
     if (err instanceof CustomError) {
-        throw err;
+      throw err;
     }
     console.error("Response Data Internal Error:", err);
-    throw new CustomError("Failed to process certificate request.", 500, "error");
+    throw new CustomError(
+      "Failed to process certificate request.",
+      500,
+      "error"
+    );
   }
 };
-
 
 const queryData = async (res, url, query, track, type) => {
   try {
@@ -133,11 +169,19 @@ const queryData = async (res, url, query, track, type) => {
 
     let record;
     if (type === "email") {
-      record = dataArray.find((item) => item.Email?.toLowerCase() === query.toLowerCase());
+      record = dataArray.find(
+        (item) => item.Email?.toLowerCase() === query.toLowerCase()
+      );
     } else if (type === "name") {
-      record = dataArray.find((item) => item.Name?.toLowerCase() === query.toLowerCase());
+      record = dataArray.find(
+        (item) => item.Name?.toLowerCase() === query.toLowerCase()
+      );
     } else {
-      throw new CustomError("Invalid query type, provide email or name", 400, "fail");
+      throw new CustomError(
+        "Invalid query type, provide email or name",
+        400,
+        "fail"
+      );
     }
 
     if (!record) throw new CustomError(`${type} not found`, 404, "fail");
@@ -157,7 +201,7 @@ const verifyAlumniOtpHandler = async (req, res) => {
   try {
     let { email, otp, track } = req.validatedOtpData;
     console.log("🔍 Verifying OTP for:", { email, track, otp });
-    
+
     const apiUrl = TRACK_URLS[track.toLowerCase()];
     if (!apiUrl) throw new CustomError("Track does not exist", 404, "fail");
 
@@ -179,7 +223,6 @@ const verifyAlumniOtpHandler = async (req, res) => {
   }
 };
 
-
 // Get user details
 const getDetailsHandler = async (req, res) => {
   try {
@@ -190,9 +233,16 @@ const getDetailsHandler = async (req, res) => {
     if (!apiUrl) throw new CustomError("Track does not exist", 404, "fail");
 
     const queryType = email ? "email" : name ? "name" : null;
-    if (!queryType) throw new CustomError("Provide a query (email or name)", 400, "fail");
+    if (!queryType)
+      throw new CustomError("Provide a query (email or name)", 400, "fail");
 
-    const details = await queryData(res, apiUrl, email || name, track, queryType);
+    const details = await queryData(
+      res,
+      apiUrl,
+      email || name,
+      track,
+      queryType
+    );
 
     return res.status(200).json(details);
   } catch (err) {
