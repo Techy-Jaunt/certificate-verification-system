@@ -36,7 +36,8 @@ const queryInput = Joi.object({
       "ui/ux",
       "data analysis",
     )
-    .required(), // if track is always required
+    .required(), 
+  cohort: Joi.string().optional(),
 })
   .or("email", "name") // at least one of email or name must be provided
   .messages({
