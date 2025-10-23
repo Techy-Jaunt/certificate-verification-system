@@ -4,7 +4,7 @@ import "../index.css";
 export const ErrorPopUp = ({ onClose }) => {           
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex justify-center items-center p-4 z-50">
+    <div className="fixed inset-0 bg-black/90 flex justify-center items-center p-4 z-50">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-sm overflow-hidden relative">
         {/* Close Button */}
         <button
