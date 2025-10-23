@@ -20,14 +20,13 @@ const VerifyGraduates = ({
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("Select Track");
 
-  const trackRegex = /^[A-Za-z]{3,}(?: [A-Za-z]{3,})?$/;
   const OtherInputRegex =
     /^([a-zA-Z\s'-]{3,}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
 
   const handleTrackInputChange = (value) => {
     setSearchParams({ ...searchParams, track: value.toLowerCase() });
     setIsValid(
-      trackRegex.test(value) && OtherInputRegex.test(searchParams.otherInput)
+      OtherInputRegex.test(searchParams.otherInput)
     );
   };
 
@@ -35,7 +34,7 @@ const VerifyGraduates = ({
     const value = e.target.value;
     setSearchParams({ ...searchParams, otherInput: value });
     setIsValid(
-      trackRegex.test(searchParams.track) && OtherInputRegex.test(value)
+     OtherInputRegex.test(value)
     );
   };
 
