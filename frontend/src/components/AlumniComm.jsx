@@ -11,9 +11,11 @@ const AlumniComm = () => {
        Connect with fellow graduates, access exclusive resources, and be part of a thriving network of tech professionals. Get access to job opportunities, mentorship, and continuous learning.
       </p>
       <div className="flex items-center justify-center">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfxxD0_ffCGbcmH1SfOFHmYFNQjakacraTapx99L3Ta4s7ARw/viewform?usp=header">
         <button className="flex items-center gap-2 mt-6 text-sm bg-secondary-150  text-white font-medium rounded-lg py-3 px-6  cursor-pointer transition-all hover:bg-secondary-50">
           <img src="/icons/alumni.svg" className="h-5 w-5" /> <span>Join Alumni Community</span>
         </button>
+          </a>
       </div>
     </section>
   );
