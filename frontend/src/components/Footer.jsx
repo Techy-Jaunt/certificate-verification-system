@@ -1,20 +1,20 @@
 const Footer = () => {
   const SocialMedias = [
-    { id: "twitter", icons: "/images/bi_twitter-x.png", href: "/" },
+    { id: "twitter", icons: "/images/bi_twitter-x.png", href: "https://twitter.com/techyjaunt" },
     {
       id: "linkedin",
       icons: "/images/akar-icons_linkedinv2-fill.png",
-      href: "/",
+      href: "https://www.linkedin.com/company/techyjaunt",
     },
-    { id: "telegram", icons: "/images/ic_sharp-telegram.png", href: "/" },
-    { id: "instagram", icons: "/images/mdi_instagram.png", href: "/" },
-    { id: "whatsapp", icons: "/images/ic_baseline-whatsapp.png", href: "/" },
+    { id: "telegram", icons: "/images/ic_sharp-telegram.png", href: "https://t.me/TechyJaunt1" },
+    { id: "instagram", icons: "/images/mdi_instagram.png", href: "https://instagram.com/techyjaunt?igshid=NTc4MTIwNjQ2YQ==" },
+    { id: "whatsapp", icons: "/images/ic_baseline-whatsapp.png", href: "https://chat.whatsapp.com/L8r0m9LFzcA9bxAKfgePPp" },
   ];
 
   const Explores = [
-    { id: "home", text: "Home", href: "/" },
-    { id: "launchpad", text: "Launchpad", href: "/" },
-    { id: "blog", text: "Blog", href: "/" },
+    { id: "home", text: "Home", href: "https://www.techyjaunt.com/" },
+    { id: "launchpad", text: "Launchpad", href: "https://www.techyjaunt.com/launchpad" },
+    { id: "blog", text: "Blog", href: "https://medium.com/@techyJaunt/" },
   ];
 
   return (
