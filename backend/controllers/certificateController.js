@@ -8,7 +8,7 @@ dotenv.config();
 
 // Base Google Sheet URL
 const BASE_URL =
-  "https://script.google.com/macros/s/AKfycbzwlTDLO7SOEIcwo3_CY10ra1374P6C7yS_3d_MttHPtvjbV0AboES6_UXv_aCQC5HO/exec";
+  "https://script.google.com/macros/s/AKfycbzf840NFB6hA5Xo6fgZB5OUxOj0dodY9dmF5UklcQq4BYb9mtT389I-EYmzYg2gv6Qt/exec";
 
 const TRACK_URLS = {
   frontend: `${BASE_URL}?track=Frontend`,
