@@ -169,6 +169,7 @@ export const CertificateDownloadForm = ({ onClose, setOpenOtpModal }) => {
 							{ label: 'Cohort 4', value: 4 },
 							{ label: 'Cohort 5', value: 5 },
 							{ label: 'Cohort 6', value: 6 },
+							{ label: 'Cohort 7', value: 7 },
 						]}
 						value={formData.cohort}
 						onChange={(val) => setFormData({ ...formData, cohort: val })}
